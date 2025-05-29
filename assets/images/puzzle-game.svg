@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="pixelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="pixelGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="gridPattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="15" height="15" fill="none" stroke="#4a90e2" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="url(#pixelBg)"/>
+  
+  <!-- 网格背景 -->
+  <rect width="300" height="200" fill="url(#gridPattern)"/>
+  
+  <!-- 游戏区域背景 -->
+  <rect x="100" y="60" width="120" height="120" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="2"/>
+  
+  <!-- 拼图网格线 -->
+  <g stroke="#7b68ee" stroke-width="2" fill="none" opacity="0.6">
+    <line x1="140" y1="60" x2="140" y2="180"/>
+    <line x1="180" y1="60" x2="180" y2="180"/>
+    <line x1="100" y1="100" x2="220" y2="100"/>
+    <line x1="100" y1="140" x2="220" y2="140"/>
+  </g>
+  
+  <!-- 拼图块 -->
+  <g filter="url(#pixelGlow)">
+    <!-- 第一行 -->
+    <rect x="105" y="65" width="30" height="30" fill="#4a90e2" stroke="#3976d3" stroke-width="2"/>
+    <text x="120" y="84" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">1</text>
+    
+    <rect x="145" y="65" width="30" height="30" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <text x="160" y="84" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">2</text>
+    
+    <rect x="185" y="65" width="30" height="30" fill="#e91e63" stroke="#c2185b" stroke-width="2"/>
+    <text x="200" y="84" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">3</text>
+    
+    <!-- 第二行 -->
+    <rect x="105" y="105" width="30" height="30" fill="#ff9800" stroke="#f57c00" stroke-width="2"/>
+    <text x="120" y="124" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">4</text>
+    
+    <rect x="145" y="105" width="30" height="30" fill="#9c27b0" stroke="#7b1fa2" stroke-width="2"/>
+    <text x="160" y="124" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">5</text>
+    
+    <rect x="185" y="105" width="30" height="30" fill="#607d8b" stroke="#455a64" stroke-width="2"/>
+    <text x="200" y="124" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">6</text>
+    
+    <!-- 第三行 -->
+    <rect x="105" y="145" width="30" height="30" fill="#673ab7" stroke="#512da8" stroke-width="2"/>
+    <text x="120" y="164" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">7</text>
+    
+    <rect x="145" y="145" width="30" height="30" fill="#795548" stroke="#5d4037" stroke-width="2"/>
+    <text x="160" y="164" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="18" font-weight="bold">8</text>
+    
+    <!-- 空白位置 -->
+    <rect x="185" y="145" width="30" height="30" fill="rgba(248, 249, 250, 0.1)" stroke="#7b68ee" stroke-width="2" stroke-dasharray="5,5"/>
+  </g>
+  
+  <!-- 左侧统计面板 -->
+  <g transform="translate(20, 80)">
+    <rect x="0" y="0" width="70" height="80" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="2"/>
+    <text x="35" y="18" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="10">MOVES</text>
+    <text x="35" y="35" text-anchor="middle" fill="#4caf50" font-family="Courier New" font-size="20" font-weight="bold">42</text>
+    <text x="35" y="52" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="10">TIME</text>
+    <text x="35" y="69" text-anchor="middle" fill="#ff9800" font-family="Courier New" font-size="16" font-weight="bold">1:23</text>
+  </g>
+  
+  <!-- 右侧目标面板 -->
+  <g transform="translate(230, 80)">
+    <rect x="0" y="0" width="50" height="80" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="2"/>
+    <text x="25" y="15" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">TARGET</text>
+    
+    <!-- 目标状态缩略图 -->
+    <g transform="translate(10, 20)">
+      <rect x="0" y="0" width="30" height="30" fill="#2d1b69" stroke="#4a90e2" stroke-width="1"/>
+      <g stroke="#7b68ee" stroke-width="0.5" fill="none" opacity="0.6">
+        <line x1="10" y1="0" x2="10" y2="30"/>
+        <line x1="20" y1="0" x2="20" y2="30"/>
+        <line x1="0" y1="10" x2="30" y2="10"/>
+        <line x1="0" y1="20" x2="30" y2="20"/>
+      </g>
+      <!-- 小数字 -->
+      <text x="5" y="8" fill="#fff" font-family="Courier New" font-size="6">1</text>
+      <text x="15" y="8" fill="#fff" font-family="Courier New" font-size="6">2</text>
+      <text x="25" y="8" fill="#fff" font-family="Courier New" font-size="6">3</text>
+      <text x="5" y="18" fill="#fff" font-family="Courier New" font-size="6">4</text>
+      <text x="15" y="18" fill="#fff" font-family="Courier New" font-size="6">5</text>
+      <text x="25" y="18" fill="#fff" font-family="Courier New" font-size="6">6</text>
+      <text x="5" y="28" fill="#fff" font-family="Courier New" font-size="6">7</text>
+      <text x="15" y="28" fill="#fff" font-family="Courier New" font-size="6">8</text>
+    </g>
+    
+    <text x="25" y="65" text-anchor="middle" fill="#e91e63" font-family="Courier New" font-size="10" font-weight="bold">SOLVE!</text>
+  </g>
+  
+  <!-- 移动指示箭头 -->
+  <g opacity="0.7">
+    <!-- 向右箭头 -->
+    <polygon points="160,190 170,185 170,195" fill="#4a90e2"/>
+    <rect x="155" y="187" width="10" height="6" fill="#4a90e2"/>
+    <text x="165" y="205" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">MOVE</text>
+  </g>
+  
+  <!-- 像素装饰 -->
+  <g opacity="0.7">
+    <rect x="10" y="10" width="8" height="8" fill="#4caf50"/>
+    <rect x="282" y="10" width="8" height="8" fill="#e91e63"/>
+    <rect x="10" y="182" width="8" height="8" fill="#4a90e2"/>
+    <rect x="282" y="182" width="8" height="8" fill="#ff9800"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="150" y="35" text-anchor="middle" fill="#f8f9fa" font-family="Courier New" font-size="20" font-weight="bold">SLIDING PUZZLE</text>
+  
+  <!-- 网格线效果 -->
+  <g opacity="0.2">
+    <rect x="0" y="40" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="80" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="120" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="160" width="300" height="1" fill="#7b68ee"/>
+  </g>
+</svg> 

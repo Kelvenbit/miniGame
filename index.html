@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迷你游戏合集</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部标题 -->
+        <header class="header">
+            <h1 class="main-title">🎮 迷你游戏合集</h1>
+            <p class="subtitle">精彩小游戏，随时随地畅玩</p>
+        </header>
+
+        <!-- 游戏展示区域 -->
+        <main class="games-container">
+            <div class="games-grid">
+                <!-- 示例游戏卡片 -->
+                <div class="game-card" data-game="snake">
+                    <div class="game-image">
+                        <img src="assets/images/snake-game.svg" alt="贪吃蛇" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">贪吃蛇</h3>
+                        <p class="game-description">经典街机游戏，控制小蛇吃食物</p>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="tetris">
+                    <div class="game-image">
+                        <img src="assets/images/tetris-game.svg" alt="俄罗斯方块" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">俄罗斯方块</h3>
+                        <p class="game-description">消除方块，挑战高分</p>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="2048">
+                    <div class="game-image">
+                        <img src="assets/images/2048-game.svg" alt="2048" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">2048</h3>
+                        <p class="game-description">数字合并，达到2048</p>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="flappy">
+                    <div class="game-image">
+                        <img src="assets/images/flappy-bird.svg" alt="飞翔小鸟" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">飞翔小鸟</h3>
+                        <p class="game-description">点击屏幕，避开障碍物</p>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="puzzle">
+                    <div class="game-image">
+                        <img src="assets/images/puzzle-game.svg" alt="拼图游戏" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">拼图游戏</h3>
+                        <p class="game-description">移动拼图块，还原图片</p>
+                    </div>
+                </div>
+
+                <div class="game-card" data-game="memory">
+                    <div class="game-image">
+                        <img src="assets/images/memory-game.svg" alt="记忆卡片" onerror="this.src='assets/images/placeholder.svg'">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">记忆卡片</h3>
+                        <p class="game-description">翻开卡片，找到相同图案</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>&copy; 2024 迷你游戏合集. 所有游戏仅供娱乐</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 

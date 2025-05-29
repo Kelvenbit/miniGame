@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞翔小鸟 - 像素游戏合集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="header-left">
+                <a href="../../index.html" class="back-btn">← 返回主页</a>
+            </div>
+            <h1 class="game-title">FLAPPY BIRD</h1>
+            <div class="header-right">
+                <div class="score-display">
+                    <span class="score-label">SCORE:</span>
+                    <span class="score-value" id="score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 游戏主体 -->
+        <main class="game-main">
+            <!-- 游戏容器 -->
+            <div class="game-container">
+                <canvas id="gameCanvas" width="600" height="800"></canvas>
+                
+                <!-- 游戏覆盖层 -->
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 class="overlay-title" id="overlayTitle">FLAPPY BIRD</h2>
+                        <p class="overlay-text" id="overlayText">点击或按空格键控制小鸟飞翔</p>
+                        <div class="overlay-buttons">
+                            <button class="pixel-btn start-btn" id="startBtn">开始游戏</button>
+                            <button class="pixel-btn restart-btn" id="restartBtn" style="display: none;">重新开始</button>
+                        </div>
+                        <div class="game-stats" id="gameStats" style="display: none;">
+                            <div class="stat-item">
+                                <span class="stat-label">最终得分:</span>
+                                <span class="stat-value" id="finalScore">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">最高纪录:</span>
+                                <span class="stat-value" id="bestScore">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏信息面板 -->
+            <aside class="game-info">
+                <div class="info-panel">
+                    <h3 class="panel-title">游戏信息</h3>
+                    <div class="info-item">
+                        <span class="info-label">最高分:</span>
+                        <span class="info-value" id="highScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">当前分数:</span>
+                        <span class="info-value" id="currentScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">飞行距离:</span>
+                        <span class="info-value" id="distance">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏状态:</span>
+                        <span class="info-value" id="gameStatus">等待开始</span>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <h3 class="panel-title">游戏控制</h3>
+                    <div class="control-grid">
+                        <div class="control-key"></div>
+                        <div class="control-key jump-key">SPACE</div>
+                        <div class="control-key"></div>
+                        <div class="control-key"></div>
+                        <div class="control-key click-key">CLICK</div>
+                        <div class="control-key"></div>
+                    </div>
+                    <p class="control-text">点击屏幕或按空格键</p>
+                    <div class="control-instructions">
+                        <div class="instruction-item">
+                            <span class="key">空格/点击</span>
+                            <span class="action">向上飞</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="key">R</span>
+                            <span class="action">重新开始</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="key">ESC</span>
+                            <span class="action">暂停游戏</span>
+                        </div>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="pixel-btn small-btn" id="pauseBtn">暂停</button>
+                        <button class="pixel-btn small-btn" id="resetBtn">重置</button>
+                    </div>
+                </div>
+
+                <div class="scoring-panel">
+                    <h3 class="panel-title">得分规则</h3>
+                    <div class="scoring-grid">
+                        <div class="scoring-item">
+                            <span class="lines">通过管道</span>
+                            <span class="points">+1分</span>
+                        </div>
+                        <div class="scoring-item highlight">
+                            <span class="lines">连续通过</span>
+                            <span class="points">额外奖励</span>
+                        </div>
+                    </div>
+                    <p class="level-info">避开所有管道，飞得更远！</p>
+                </div>
+
+                <div class="rules-panel">
+                    <h3 class="panel-title">游戏规则</h3>
+                    <ul class="rules-list">
+                        <li>控制小鸟穿越管道</li>
+                        <li>碰到管道或地面游戏结束</li>
+                        <li>每通过一个管道得1分</li>
+                        <li>尽可能飞得更远</li>
+                        <li>挑战你的最高纪录</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 

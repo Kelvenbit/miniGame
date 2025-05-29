@@ -1,0 +1,1059 @@
+/* 俄罗斯方块游戏样式 - 像素风格 */
+:root {
+    /* 像素风格配色方案 - 与其他游戏一致 */
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --card-bg: #0f3460;
+    --accent-color: #4a90e2;
+    --secondary-accent: #7b68ee;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --danger-color: #e91e63;
+    --text-primary: #f8f9fa;
+    --text-secondary: #b8c5d1;
+    --text-muted: #6c757d;
+    --border-color: #4a90e2;
+    --hover-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    
+    /* 像素字体 */
+    --pixel-font: 'Courier New', monospace;
+    
+    /* 俄罗斯方块尺寸 */
+    --block-size: 30px;
+    --board-width: calc(var(--block-size) * 10);
+    --board-height: calc(var(--block-size) * 20);
+    --board-border: 3px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--pixel-font);
+    background: var(--primary-bg);
+    background-image: 
+        linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%),
+        radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(123, 104, 238, 0.1) 0%, transparent 50%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    /* 像素化效果 */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* 游戏头部 - 与其他游戏完全一致 */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+.back-btn {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: var(--accent-color);
+}
+
+.game-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0px var(--accent-color);
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-label {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-value {
+    color: var(--success-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 游戏主体 */
+.game-main {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+}
+
+/* 游戏容器 */
+.game-container {
+    position: relative;
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    width: fit-content;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* 游戏板 */
+.game-board {
+    position: relative;
+    width: var(--board-width);
+    height: var(--board-height);
+    background: #1a1a2e;
+    border: var(--board-border) solid var(--border-color);
+    box-sizing: content-box; /* 确保边框不影响内部尺寸 */
+    /* 经典像素化背景纹理 */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(74, 144, 226, 0.08) 2px,
+            rgba(74, 144, 226, 0.08) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(123, 104, 238, 0.08) 2px,
+            rgba(123, 104, 238, 0.08) 4px
+        );
+}
+
+/* 网格背景 */
+.grid-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 使用fr单位确保均匀分布 */
+    grid-template-rows: repeat(20, 1fr); /* 使用fr单位确保均匀分布 */
+    gap: 0;
+    padding: 0;
+}
+
+.grid-cell {
+    background: rgba(22, 33, 62, 0.3);
+    /* 移除边框，使用内阴影创建网格效果 */
+    box-shadow: 
+        inset 0 0 0 1px rgba(74, 144, 226, 0.15);
+    box-sizing: border-box;
+}
+
+/* 活动方块容器 */
+.active-piece-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* 方块基础样式 */
+.tetris-block {
+    position: absolute;
+    border: 2px solid;
+    box-sizing: border-box;
+    /* 像素艺术效果 */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    /* 移除固定尺寸，由JavaScript动态设置 */
+}
+
+/* 俄罗斯方块颜色 - 经典16bit像素艺术风格 */
+/* I形方块 - 青色 */
+.tetris-block.I {
+    background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%);
+    border-color: #008b8b;
+    box-shadow: 
+        inset 2px 2px 0 #66ffff,
+        inset -2px -2px 0 #008b8b;
+}
+
+/* O形方块 - 黄色 */
+.tetris-block.O {
+    background: linear-gradient(135deg, #ffff00 0%, #cccc00 100%);
+    border-color: #999900;
+    box-shadow: 
+        inset 2px 2px 0 #ffff66,
+        inset -2px -2px 0 #999900;
+}
+
+/* T形方块 - 紫色 */
+.tetris-block.T {
+    background: linear-gradient(135deg, #9370db 0%, #663399 100%);
+    border-color: #4b0082;
+    box-shadow: 
+        inset 2px 2px 0 #ba55d3,
+        inset -2px -2px 0 #4b0082;
+}
+
+/* S形方块 - 绿色 */
+.tetris-block.S {
+    background: linear-gradient(135deg, #00ff7f 0%, #00cc66 100%);
+    border-color: #008b00;
+    box-shadow: 
+        inset 2px 2px 0 #33ff99,
+        inset -2px -2px 0 #008b00;
+}
+
+/* Z形方块 - 红色 */
+.tetris-block.Z {
+    background: linear-gradient(135deg, #ff6347 0%, #dc143c 100%);
+    border-color: #8b0000;
+    box-shadow: 
+        inset 2px 2px 0 #ff7f7f,
+        inset -2px -2px 0 #8b0000;
+}
+
+/* J形方块 - 蓝色 */
+.tetris-block.J {
+    background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%);
+    border-color: #000080;
+    box-shadow: 
+        inset 2px 2px 0 #4fa8ff,
+        inset -2px -2px 0 #000080;
+}
+
+/* L形方块 - 橙色 */
+.tetris-block.L {
+    background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+    border-color: #ff6347;
+    box-shadow: 
+        inset 2px 2px 0 #ffb347,
+        inset -2px -2px 0 #cc6600;
+}
+
+/* 固定方块（已落下的方块） */
+.tetris-block.fixed {
+    opacity: 0.9;
+}
+
+/* 幽灵方块（预览位置） */
+.tetris-block.ghost {
+    opacity: 0.3;
+    background: transparent !important;
+    border-style: dashed;
+}
+
+/* 消除动画 */
+.tetris-block.clearing {
+    animation: lineClearing 0.5s ease-out;
+}
+
+@keyframes lineClearing {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+        background: #ffffff;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* 游戏覆盖层 - 与其他游戏一致 */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 像素化网格背景 */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 10px,
+            rgba(74, 144, 226, 0.1) 10px,
+            rgba(74, 144, 226, 0.1) 12px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 10px,
+            rgba(123, 104, 238, 0.1) 10px,
+            rgba(123, 104, 238, 0.1) 12px
+        );
+}
+
+.overlay-content {
+    text-align: center;
+    max-width: 400px;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+}
+
+.overlay-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.overlay-text {
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.overlay-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+/* 像素按钮样式 - 与其他游戏一致 */
+.pixel-btn {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-color);
+    padding: 0.8rem 1.5rem;
+    font-family: var(--pixel-font);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* 像素化按钮效果 */
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 90% 100%, 0 100%);
+}
+
+.pixel-btn:hover {
+    background: var(--secondary-accent);
+    border-color: var(--secondary-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.pixel-btn.small-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.start-btn {
+    background: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.restart-btn {
+    background: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+/* 游戏统计 */
+.game-stats {
+    margin-top: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.stat-value {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+/* 游戏信息面板 - 与其他游戏一致 */
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-panel,
+.next-piece-panel,
+.control-panel,
+.scoring-panel,
+.rules-panel {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.panel-title {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.info-value {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* 下一个方块预览面板 */
+.next-piece-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px; /* 增加最小高度以容纳4格竖条 */
+    background: rgba(22, 33, 62, 0.3);
+    border: 2px solid rgba(74, 144, 226, 0.3);
+    border-radius: 4px;
+    padding: 8px; /* 添加内边距确保内容不贴边 */
+}
+
+.next-piece-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 25px);
+    grid-template-rows: repeat(4, 25px);
+    gap: 2px;
+    /* 确保网格容器尺寸 */
+    width: 108px; /* 4 * 25px + 3 * 2px gap */
+    height: 108px; /* 4 * 25px + 3 * 2px gap */
+}
+
+/* 基础调试 - 让所有预览单元格可见 */
+.next-piece-cell {
+    width: 25px !important;
+    height: 25px !important;
+    border: 1px solid rgba(74, 144, 226, 0.1) !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    position: relative !important;
+}
+
+/* 强制应用方块颜色 - 使用更高优先级 */
+.next-piece-cell.tetris-block {
+    width: 25px !important;
+    height: 25px !important;
+    border: 2px solid #fff !important;
+    box-sizing: border-box !important;
+}
+
+/* 强制颜色规则 - 使用最高优先级 */
+.next-piece-cell.tetris-block.I { 
+    background: #00ffff !important; 
+    border-color: #008b8b !important; 
+}
+.next-piece-cell.tetris-block.O { 
+    background: #ffff00 !important; 
+    border-color: #999900 !important; 
+}
+.next-piece-cell.tetris-block.T { 
+    background: #9370db !important; 
+    border-color: #4b0082 !important; 
+}
+.next-piece-cell.tetris-block.S { 
+    background: #00ff7f !important; 
+    border-color: #008b00 !important; 
+}
+.next-piece-cell.tetris-block.Z { 
+    background: #ff6347 !important; 
+    border-color: #8b0000 !important; 
+}
+.next-piece-cell.tetris-block.J { 
+    background: #1e90ff !important; 
+    border-color: #000080 !important; 
+}
+.next-piece-cell.tetris-block.L { 
+    background: #ffa500 !important; 
+    border-color: #ff6347 !important; 
+}
+
+/* 控制面板 - 与其他游戏一致 */
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    max-width: 150px;
+    margin: 1rem auto;
+}
+
+.control-key {
+    width: 40px;
+    height: 40px;
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.control-text {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 1rem 0;
+    text-transform: uppercase;
+}
+
+.control-instructions {
+    margin: 1rem 0;
+}
+
+.instruction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    font-size: 0.8rem;
+}
+
+.key {
+    background: var(--secondary-bg);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.action {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* 分数规则面板 */
+.scoring-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.scoring-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+    font-size: 0.8rem;
+}
+
+.scoring-item.highlight {
+    background: rgba(123, 104, 238, 0.2);
+    border-color: var(--secondary-accent);
+}
+
+.lines {
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.points {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.level-info {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 规则面板 - 与其他游戏一致 */
+.rules-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rules-list li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    padding-left: 1rem;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rules-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .game-main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .game-info {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .info-panel,
+    .next-piece-panel,
+    .control-panel,
+    .scoring-panel,
+    .rules-panel {
+        flex: 1;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .game-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .game-side-panel {
+        flex-direction: row;
+        min-width: 100%;
+        justify-content: space-around;
+    }
+    
+    .game-side-panel .next-piece-panel,
+    .mini-stats {
+        flex: 1;
+        margin: 0 5px;
+    }
+    
+    /* 手机端使用较小的方块尺寸 */
+    :root {
+        --block-size: 25px;
+        --board-width: calc(var(--block-size) * 10);
+        --board-height: calc(var(--block-size) * 20);
+    }
+    
+    /* 移除方块固定尺寸覆盖，使用百分比定位 */
+    .game-side-panel .next-piece-grid {
+        grid-template-columns: repeat(4, 22px); /* 移动设备稍小一些 */
+        grid-template-rows: repeat(4, 22px);
+    }
+    
+    .game-side-panel .next-piece-cell {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .game-side-panel .next-piece-cell.tetris-block {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .overlay-buttons {
+        flex-direction: column;
+    }
+    
+    .game-info {
+        flex-direction: column;
+    }
+}
+
+/* 游戏状态指示器 - 与其他游戏一致 */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-waiting {
+    background: var(--text-muted);
+}
+
+.status-playing {
+    background: var(--success-color);
+    animation: pulse 2s infinite;
+}
+
+.status-paused {
+    background: var(--warning-color);
+}
+
+.status-ended {
+    background: var(--danger-color);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* 隐藏类 */
+.hidden {
+    display: none !important;
+}
+
+/* 游戏右侧面板 */
+.game-side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 160px;
+}
+
+.game-side-panel .next-piece-panel {
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    box-shadow: var(--card-shadow);
+    /* 确保容器有足够高度 */
+    min-height: 200px; /* 增加更多高度 */
+}
+
+.game-side-panel .panel-title {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.game-side-panel .next-piece-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px; /* 更大的最小高度 */
+    height: auto; /* 让容器自动调整高度 */
+    max-height: none; /* 移除高度限制 */
+    background: rgba(22, 33, 62, 0.5);
+    border: 2px solid rgba(74, 144, 226, 0.3);
+    border-radius: 4px;
+    padding: 15px; /* 增加内边距 */
+    /* 确保内容不会溢出 */
+    overflow: visible; /* 确保内容可见 */
+    box-sizing: content-box; /* 确保padding不影响内部尺寸 */
+}
+
+.game-side-panel .next-piece-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 25px);
+    grid-template-rows: repeat(4, 25px);
+    gap: 2px;
+    /* 确保网格容器尺寸 */
+    width: 108px !important; /* 4 * 25px + 3 * 2px gap */
+    height: 108px !important; /* 4 * 25px + 3 * 2px gap */
+    /* 确保网格内容可见 */
+    overflow: visible !important;
+    position: relative; /* 确保定位正确 */
+}
+
+/* 使用内联样式级别的强制应用 */
+.next-piece-cell {
+    width: 25px !important;
+    height: 25px !important;
+    border: 1px solid rgba(74, 144, 226, 0.1) !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    position: relative !important;
+}
+
+/* 使用最强选择器确保颜色生效 */
+.next-piece-cell.tetris-block {
+    width: 25px !important;
+    height: 25px !important;
+    border: 2px solid #fff !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    position: relative !important;
+}
+
+/* 使用ID选择器 + 强制优先级确保背景色生效 */
+#nextPieceGrid .next-piece-cell.tetris-block.I {
+    background-color: #00ffff !important; 
+    background: #00ffff !important; 
+    border-color: #008b8b !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.O {
+    background-color: #ffff00 !important; 
+    background: #ffff00 !important; 
+    border-color: #999900 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.T {
+    background-color: #9370db !important; 
+    background: #9370db !important; 
+    border-color: #4b0082 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.S {
+    background-color: #00ff7f !important; 
+    background: #00ff7f !important; 
+    border-color: #008b00 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.Z {
+    background-color: #ff6347 !important; 
+    background: #ff6347 !important; 
+    border-color: #8b0000 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.J {
+    background-color: #1e90ff !important; 
+    background: #1e90ff !important; 
+    border-color: #000080 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+#nextPieceGrid .next-piece-cell.tetris-block.L {
+    background-color: #ffa500 !important; 
+    background: #ffa500 !important; 
+    border-color: #ff6347 !important; 
+    border-width: 2px !important;
+    border-style: solid !important;
+}
+
+/* 迷你统计信息 */
+.mini-stats {
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mini-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.mini-stat-item:last-child {
+    border-bottom: none;
+}
+
+.mini-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mini-value {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* 极其具体的选择器确保预览方块样式被正确应用 */
+#nextPieceGrid .next-piece-cell.tetris-block,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block {
+    width: 25px !important;
+    height: 25px !important;
+    border: 2px solid !important;
+    box-sizing: border-box !important;
+}
+
+/* I形方块 - 青色 */
+#nextPieceGrid .next-piece-cell.tetris-block.I,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.I,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.I {
+    background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%) !important;
+    border-color: #008b8b !important;
+    box-shadow: 
+        inset 2px 2px 0 #66ffff,
+        inset -2px -2px 0 #008b8b !important;
+}
+
+/* O形方块 - 黄色 */
+#nextPieceGrid .next-piece-cell.tetris-block.O,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.O,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.O {
+    background: linear-gradient(135deg, #ffff00 0%, #cccc00 100%) !important;
+    border-color: #999900 !important;
+    box-shadow: 
+        inset 2px 2px 0 #ffff66,
+        inset -2px -2px 0 #999900 !important;
+}
+
+/* T形方块 - 紫色 */
+#nextPieceGrid .next-piece-cell.tetris-block.T,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.T,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.T {
+    background: linear-gradient(135deg, #9370db 0%, #663399 100%) !important;
+    border-color: #4b0082 !important;
+    box-shadow: 
+        inset 2px 2px 0 #ba55d3,
+        inset -2px -2px 0 #4b0082 !important;
+}
+
+/* S形方块 - 绿色 */
+#nextPieceGrid .next-piece-cell.tetris-block.S,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.S,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.S {
+    background: linear-gradient(135deg, #00ff7f 0%, #00cc66 100%) !important;
+    border-color: #008b00 !important;
+    box-shadow: 
+        inset 2px 2px 0 #33ff99,
+        inset -2px -2px 0 #008b00 !important;
+}
+
+/* Z形方块 - 红色 */
+#nextPieceGrid .next-piece-cell.tetris-block.Z,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.Z,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.Z {
+    background: linear-gradient(135deg, #ff6347 0%, #dc143c 100%) !important;
+    border-color: #8b0000 !important;
+    box-shadow: 
+        inset 2px 2px 0 #ff7f7f,
+        inset -2px -2px 0 #8b0000 !important;
+}
+
+/* J形方块 - 蓝色 */
+#nextPieceGrid .next-piece-cell.tetris-block.J,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.J,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.J {
+    background: linear-gradient(135deg, #1e90ff 0%, #0066cc 100%) !important;
+    border-color: #000080 !important;
+    box-shadow: 
+        inset 2px 2px 0 #4fa8ff,
+        inset -2px -2px 0 #000080 !important;
+}
+
+/* L形方块 - 橙色 */
+#nextPieceGrid .next-piece-cell.tetris-block.L,
+.game-side-panel #nextPieceGrid .next-piece-cell.tetris-block.L,
+.next-piece-container .next-piece-grid .next-piece-cell.tetris-block.L {
+    background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%) !important;
+    border-color: #ff6347 !important;
+    box-shadow: 
+        inset 2px 2px 0 #ffb347,
+        inset -2px -2px 0 #cc6600 !important;
+} 

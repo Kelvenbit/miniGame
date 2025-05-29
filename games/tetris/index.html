@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块 - 像素游戏合集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="header-left">
+                <a href="../../index.html" class="back-btn">← 返回主页</a>
+            </div>
+            <h1 class="game-title">TETRIS GAME</h1>
+            <div class="header-right">
+                <div class="score-display">
+                    <span class="score-label">SCORE:</span>
+                    <span class="score-value" id="score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 游戏主体 -->
+        <main class="game-main">
+            <!-- 游戏容器 -->
+            <div class="game-container">
+                <div class="game-board" id="gameBoard">
+                    <!-- 游戏网格背景 -->
+                    <div class="grid-container" id="gridContainer">
+                        <!-- 20行×10列 = 200个网格单元，通过JavaScript动态生成 -->
+                    </div>
+                    
+                    <!-- 活动方块容器 -->
+                    <div class="active-piece-container" id="activePieceContainer">
+                        <!-- 当前下落的方块 -->
+                    </div>
+                </div>
+                
+                <!-- 游戏右侧面板 -->
+                <div class="game-side-panel">
+                    <div class="next-piece-panel">
+                        <h3 class="panel-title">NEXT</h3>
+                        <div class="next-piece-container" id="nextPieceContainer">
+                            <div class="next-piece-grid" id="nextPieceGrid">
+                                <!-- 4x4网格用于显示下一个方块 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mini-stats">
+                        <div class="mini-stat-item">
+                            <span class="mini-label">LEVEL</span>
+                            <span class="mini-value" id="miniLevel">1</span>
+                        </div>
+                        <div class="mini-stat-item">
+                            <span class="mini-label">LINES</span>
+                            <span class="mini-value" id="miniLines">0</span>
+                        </div>
+                        <div class="mini-stat-item">
+                            <span class="mini-label">TIME</span>
+                            <span class="mini-value" id="miniTime">00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏覆盖层 -->
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 class="overlay-title" id="overlayTitle">TETRIS GAME</h2>
+                        <p class="overlay-text" id="overlayText">使用 WASD 或 方向键 控制方块</p>
+                        <div class="overlay-buttons">
+                            <button class="pixel-btn start-btn" id="startBtn">开始游戏</button>
+                            <button class="pixel-btn restart-btn" id="restartBtn" style="display: none;">重新开始</button>
+                        </div>
+                        <div class="game-stats" id="gameStats" style="display: none;">
+                            <div class="stat-item">
+                                <span class="stat-label">最终得分:</span>
+                                <span class="stat-value" id="finalScore">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">消除行数:</span>
+                                <span class="stat-value" id="totalLines">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">当前等级:</span>
+                                <span class="stat-value" id="finalLevel">1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">游戏时间:</span>
+                                <span class="stat-value" id="gameTime">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏信息面板 -->
+            <aside class="game-info">
+                <div class="info-panel">
+                    <h3 class="panel-title">游戏信息</h3>
+                    <div class="info-item">
+                        <span class="info-label">最高分:</span>
+                        <span class="info-value" id="highScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">当前分数:</span>
+                        <span class="info-value" id="currentScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">消除行数:</span>
+                        <span class="info-value" id="currentLines">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">当前等级:</span>
+                        <span class="info-value" id="currentLevel">1</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏时间:</span>
+                        <span class="info-value" id="currentTime">00:00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏状态:</span>
+                        <span class="info-value" id="gameStatus">等待开始</span>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <h3 class="panel-title">游戏控制</h3>
+                    <div class="control-grid">
+                        <div class="control-key"></div>
+                        <div class="control-key">↑</div>
+                        <div class="control-key"></div>
+                        <div class="control-key">←</div>
+                        <div class="control-key">↓</div>
+                        <div class="control-key">→</div>
+                    </div>
+                    <p class="control-text">或使用 WASD 键控制</p>
+                    <div class="control-instructions">
+                        <div class="instruction-item">
+                            <span class="key">↑/W</span>
+                            <span class="action">旋转</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="key">←→/AD</span>
+                            <span class="action">移动</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="key">↓/S</span>
+                            <span class="action">加速下落</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="key">空格</span>
+                            <span class="action">暂停</span>
+                        </div>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="pixel-btn small-btn" id="pauseBtn">暂停</button>
+                        <button class="pixel-btn small-btn" id="resetBtn">重置</button>
+                    </div>
+                </div>
+
+                <div class="scoring-panel">
+                    <h3 class="panel-title">分数规则</h3>
+                    <div class="scoring-grid">
+                        <div class="scoring-item">
+                            <span class="lines">1行</span>
+                            <span class="points">100分</span>
+                        </div>
+                        <div class="scoring-item">
+                            <span class="lines">2行</span>
+                            <span class="points">300分</span>
+                        </div>
+                        <div class="scoring-item">
+                            <span class="lines">3行</span>
+                            <span class="points">500分</span>
+                        </div>
+                        <div class="scoring-item highlight">
+                            <span class="lines">4行</span>
+                            <span class="points">800分</span>
+                        </div>
+                    </div>
+                    <p class="level-info">每10行提升一级，速度加快</p>
+                </div>
+
+                <div class="rules-panel">
+                    <h3 class="panel-title">游戏规则</h3>
+                    <ul class="rules-list">
+                        <li>控制方块填满整行</li>
+                        <li>填满的行会自动消除</li>
+                        <li>同时消除多行得分更高</li>
+                        <li>等级越高下落速度越快</li>
+                        <li>方块堆到顶部游戏结束</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- 游戏脚本 -->
+    <script src="game.js"></script>
+</body>
+</html> 

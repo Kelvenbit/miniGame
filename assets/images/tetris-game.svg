@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="pixelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="pixelGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="digitalGrid" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="15" height="15" fill="none" stroke="#4a90e2" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="url(#pixelBg)"/>
+  
+  <!-- 数字网格 -->
+  <rect width="300" height="200" fill="url(#digitalGrid)"/>
+  
+  <!-- 游戏区域边框 -->
+  <rect x="70" y="20" width="90" height="140" fill="none" stroke="#4a90e2" stroke-width="2"/>
+  <rect x="72" y="22" width="86" height="136" fill="rgba(74, 144, 226, 0.1)"/>
+  
+  <!-- 像素方块 - 底部堆叠 -->
+  <g filter="url(#pixelGlow)">
+    <!-- 底层 -->
+    <rect x="75" y="145" width="15" height="15" fill="#4a90e2" stroke="#3976d3" stroke-width="1"/>
+    <rect x="90" y="145" width="15" height="15" fill="#ff9800" stroke="#f57c00" stroke-width="1"/>
+    <rect x="105" y="145" width="15" height="15" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+    <rect x="120" y="145" width="15" height="15" fill="#e91e63" stroke="#c2185b" stroke-width="1"/>
+    <rect x="135" y="145" width="15" height="15" fill="#9c27b0" stroke="#7b1fa2" stroke-width="1"/>
+    <rect x="150" y="145" width="15" height="15" fill="#607d8b" stroke="#455a64" stroke-width="1"/>
+    
+    <!-- 第二层 -->
+    <rect x="75" y="130" width="15" height="15" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+    <rect x="90" y="130" width="15" height="15" fill="#e91e63" stroke="#c2185b" stroke-width="1"/>
+    <rect x="120" y="130" width="15" height="15" fill="#4a90e2" stroke="#3976d3" stroke-width="1"/>
+    <rect x="135" y="130" width="15" height="15" fill="#607d8b" stroke="#455a64" stroke-width="1"/>
+    <rect x="150" y="130" width="15" height="15" fill="#ff9800" stroke="#f57c00" stroke-width="1"/>
+    
+    <!-- 第三层 -->
+    <rect x="90" y="115" width="15" height="15" fill="#9c27b0" stroke="#7b1fa2" stroke-width="1"/>
+    <rect x="105" y="115" width="15" height="15" fill="#607d8b" stroke="#455a64" stroke-width="1"/>
+    <rect x="135" y="115" width="15" height="15" fill="#4a90e2" stroke="#3976d3" stroke-width="1"/>
+  </g>
+  
+  <!-- 下落的T型方块 -->
+  <g filter="url(#pixelGlow)" opacity="0.9">
+    <rect x="105" y="40" width="15" height="15" fill="#7b68ee" stroke="#5e35b1" stroke-width="2"/>
+    <rect x="90" y="55" width="15" height="15" fill="#7b68ee" stroke="#5e35b1" stroke-width="2"/>
+    <rect x="105" y="55" width="15" height="15" fill="#7b68ee" stroke="#5e35b1" stroke-width="2"/>
+    <rect x="120" y="55" width="15" height="15" fill="#7b68ee" stroke="#5e35b1" stroke-width="2"/>
+  </g>
+  
+  <!-- 下一个方块预览 -->
+  <g transform="translate(180, 40)">
+    <rect x="0" y="0" width="50" height="40" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="1"/>
+    <text x="25" y="12" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">NEXT</text>
+    <rect x="10" y="20" width="10" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+    <rect x="10" y="30" width="10" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+    <rect x="20" y="30" width="10" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+    <rect x="30" y="30" width="10" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+  </g>
+  
+  <!-- 分数显示 -->
+  <g transform="translate(180, 90)">
+    <rect x="0" y="0" width="60" height="50" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="1"/>
+    <text x="30" y="12" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">SCORE</text>
+    <text x="30" y="25" text-anchor="middle" fill="#4caf50" font-family="Courier New" font-size="14" font-weight="bold">2450</text>
+    <text x="30" y="35" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">LEVEL</text>
+    <text x="30" y="45" text-anchor="middle" fill="#ff9800" font-family="Courier New" font-size="12" font-weight="bold">03</text>
+  </g>
+  
+  <!-- 左侧装饰 -->
+  <g opacity="0.6">
+    <!-- 像素艺术装饰 -->
+    <rect x="20" y="50" width="8" height="8" fill="#4a90e2"/>
+    <rect x="28" y="58" width="8" height="8" fill="#7b68ee"/>
+    <rect x="20" y="66" width="8" height="8" fill="#4caf50"/>
+    <rect x="28" y="74" width="8" height="8" fill="#ff9800"/>
+    
+    <rect x="20" y="100" width="8" height="8" fill="#e91e63"/>
+    <rect x="28" y="108" width="8" height="8" fill="#9c27b0"/>
+    <rect x="20" y="116" width="8" height="8" fill="#607d8b"/>
+    <rect x="28" y="124" width="8" height="8" fill="#4a90e2"/>
+  </g>
+  
+  <!-- 像素边框装饰 -->
+  <g fill="#7b68ee" opacity="0.8">
+    <rect x="5" y="5" width="6" height="6"/>
+    <rect x="289" y="5" width="6" height="6"/>
+    <rect x="5" y="189" width="6" height="6"/>
+    <rect x="289" y="189" width="6" height="6"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="150" y="185" text-anchor="middle" fill="#f8f9fa" font-family="Courier New" font-size="18" font-weight="bold">TETRIS</text>
+  
+  <!-- 网格线效果 -->
+  <g opacity="0.2">
+    <rect x="0" y="25" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="50" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="75" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="100" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="125" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="150" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="175" width="300" height="1" fill="#4a90e2"/>
+  </g>
+</svg> 

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="pixelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="pixelGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="gridPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="20" height="20" fill="none" stroke="#4a90e2" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="url(#pixelBg)"/>
+  
+  <!-- 网格背景 -->
+  <rect width="300" height="200" fill="url(#gridPattern)"/>
+  
+  <!-- 游戏板背景 -->
+  <rect x="60" y="40" width="120" height="120" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="2"/>
+  
+  <!-- 游戏网格线 -->
+  <g stroke="#7b68ee" stroke-width="1" fill="none" opacity="0.6">
+    <line x1="90" y1="40" x2="90" y2="160"/>
+    <line x1="120" y1="40" x2="120" y2="160"/>
+    <line x1="150" y1="40" x2="150" y2="160"/>
+    <line x1="60" y1="70" x2="180" y2="70"/>
+    <line x1="60" y1="100" x2="180" y2="100"/>
+    <line x1="60" y1="130" x2="180" y2="130"/>
+  </g>
+  
+  <!-- 数字方块 -->
+  <g filter="url(#pixelGlow)">
+    <!-- 第一行 -->
+    <rect x="65" y="45" width="20" height="20" fill="#e3f2fd" stroke="#bbdefb" stroke-width="1"/>
+    <text x="75" y="58" text-anchor="middle" fill="#1565c0" font-family="Courier New" font-size="12" font-weight="bold">2</text>
+    
+    <rect x="95" y="45" width="20" height="20" fill="#fff3e0" stroke="#ffcc02" stroke-width="1"/>
+    <text x="105" y="58" text-anchor="middle" fill="#e65100" font-family="Courier New" font-size="12" font-weight="bold">4</text>
+    
+    <rect x="125" y="45" width="20" height="20" fill="#fce4ec" stroke="#f8bbd9" stroke-width="1"/>
+    <text x="135" y="58" text-anchor="middle" fill="#c2185b" font-family="Courier New" font-size="12" font-weight="bold">8</text>
+    
+    <rect x="155" y="45" width="20" height="20" fill="#f3e5f5" stroke="#e1bee7" stroke-width="1"/>
+    <text x="165" y="58" text-anchor="middle" fill="#7b1fa2" font-family="Courier New" font-size="10" font-weight="bold">16</text>
+    
+    <!-- 第二行 -->
+    <rect x="65" y="75" width="20" height="20" fill="#e8f5e8" stroke="#c8e6c9" stroke-width="1"/>
+    <text x="75" y="88" text-anchor="middle" fill="#2e7d32" font-family="Courier New" font-size="10" font-weight="bold">32</text>
+    
+    <rect x="95" y="75" width="20" height="20" fill="#e0f2f1" stroke="#b2dfdb" stroke-width="1"/>
+    <text x="105" y="88" text-anchor="middle" fill="#00695c" font-family="Courier New" font-size="10" font-weight="bold">64</text>
+    
+    <rect x="125" y="75" width="20" height="20" fill="#e1f5fe" stroke="#b3e5fc" stroke-width="1"/>
+    <text x="135" y="88" text-anchor="middle" fill="#0277bd" font-family="Courier New" font-size="9" font-weight="bold">128</text>
+    
+    <!-- 第三行 -->
+    <rect x="65" y="105" width="20" height="20" fill="#fff8e1" stroke="#ffecb3" stroke-width="1"/>
+    <text x="75" y="118" text-anchor="middle" fill="#f57f17" font-family="Courier New" font-size="9" font-weight="bold">256</text>
+    
+    <rect x="95" y="105" width="20" height="20" fill="#fff3e0" stroke="#ffe0b2" stroke-width="1"/>
+    <text x="105" y="118" text-anchor="middle" fill="#e65100" font-family="Courier New" font-size="9" font-weight="bold">512</text>
+    
+    <!-- 第四行 -->
+    <rect x="65" y="135" width="20" height="20" fill="#fce4ec" stroke="#f8bbd9" stroke-width="1"/>
+    <text x="75" y="148" text-anchor="middle" fill="#c2185b" font-family="Courier New" font-size="8" font-weight="bold">1024</text>
+  </g>
+  
+  <!-- 高亮的2048方块 -->
+  <g transform="translate(200, 70)" filter="url(#pixelGlow)">
+    <rect x="0" y="0" width="80" height="60" fill="#7b68ee" stroke="#5e35b1" stroke-width="3"/>
+    <rect x="5" y="5" width="70" height="50" fill="rgba(123, 104, 238, 0.3)"/>
+    <text x="40" y="25" text-anchor="middle" fill="#fff" font-family="Courier New" font-size="16" font-weight="bold">2048</text>
+    <text x="40" y="40" text-anchor="middle" fill="#f8f9fa" font-family="Courier New" font-size="10">TARGET</text>
+  </g>
+  
+  <!-- 分数显示 -->
+  <g transform="translate(20, 50)">
+    <rect x="0" y="0" width="35" height="60" fill="rgba(15, 52, 96, 0.8)" stroke="#4a90e2" stroke-width="1"/>
+    <text x="17.5" y="12" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">SCORE</text>
+    <text x="17.5" y="25" text-anchor="middle" fill="#4caf50" font-family="Courier New" font-size="12" font-weight="bold">1024</text>
+    <text x="17.5" y="40" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="8">MOVES</text>
+    <text x="17.5" y="53" text-anchor="middle" fill="#ff9800" font-family="Courier New" font-size="12" font-weight="bold">28</text>
+  </g>
+  
+  <!-- 移动箭头指示 -->
+  <g opacity="0.6">
+    <!-- 向右箭头 -->
+    <polygon points="190,105 200,100 200,110" fill="#4a90e2"/>
+    <rect x="185" y="102" width="10" height="6" fill="#4a90e2"/>
+    
+    <!-- 向下箭头 -->
+    <polygon points="120,175 115,185 125,185" fill="#7b68ee"/>
+    <rect x="117" y="170" width="6" height="10" fill="#7b68ee"/>
+  </g>
+  
+  <!-- 像素装饰 -->
+  <g opacity="0.7">
+    <rect x="10" y="10" width="8" height="8" fill="#4caf50"/>
+    <rect x="282" y="10" width="8" height="8" fill="#ff9800"/>
+    <rect x="10" y="182" width="8" height="8" fill="#4a90e2"/>
+    <rect x="282" y="182" width="8" height="8" fill="#e91e63"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="150" y="25" text-anchor="middle" fill="#f8f9fa" font-family="Courier New" font-size="20" font-weight="bold">2048</text>
+  
+  <!-- 网格线效果 -->
+  <g opacity="0.2">
+    <rect x="0" y="30" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="60" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="90" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="120" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="150" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="180" width="300" height="1" fill="#7b68ee"/>
+  </g>
+</svg> 

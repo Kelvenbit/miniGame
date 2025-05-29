@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="pixelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="pixelGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="stars" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#7b68ee" opacity="0.6"/>
+      <circle cx="35" cy="25" r="0.5" fill="#4a90e2" opacity="0.4"/>
+      <circle cx="20" cy="40" r="0.8" fill="#4caf50" opacity="0.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="url(#pixelBg)"/>
+  
+  <!-- 星空背景 -->
+  <rect width="300" height="140" fill="url(#stars)"/>
+  
+  <!-- 地面 -->
+  <rect x="0" y="180" width="300" height="20" fill="#66bb6a"/>
+  <rect x="0" y="182" width="300" height="16" fill="#4caf50"/>
+  
+  <!-- 像素地面装饰 -->
+  <g fill="#388e3c" opacity="0.7">
+    <rect x="10" y="185" width="5" height="5"/>
+    <rect x="30" y="187" width="5" height="3"/>
+    <rect x="50" y="185" width="5" height="5"/>
+    <rect x="80" y="187" width="5" height="3"/>
+    <rect x="120" y="185" width="5" height="5"/>
+    <rect x="150" y="187" width="5" height="3"/>
+    <rect x="180" y="185" width="5" height="5"/>
+    <rect x="220" y="187" width="5" height="3"/>
+    <rect x="250" y="185" width="5" height="5"/>
+    <rect x="280" y="187" width="5" height="3"/>
+  </g>
+  
+  <!-- 像素管道1 -->
+  <g filter="url(#pixelGlow)">
+    <rect x="80" y="0" width="25" height="70" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="75" y="65" width="35" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="80" y="140" width="25" height="40" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="75" y="135" width="35" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    
+    <!-- 管道内部装饰 -->
+    <rect x="85" y="5" width="15" height="60" fill="rgba(76, 175, 80, 0.3)"/>
+    <rect x="85" y="145" width="15" height="35" fill="rgba(76, 175, 80, 0.3)"/>
+  </g>
+  
+  <!-- 像素管道2 -->
+  <g filter="url(#pixelGlow)">
+    <rect x="200" y="0" width="25" height="90" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="195" y="85" width="35" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="200" y="150" width="25" height="30" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    <rect x="195" y="145" width="35" height="10" fill="#4caf50" stroke="#388e3c" stroke-width="2"/>
+    
+    <!-- 管道内部装饰 -->
+    <rect x="205" y="5" width="15" height="80" fill="rgba(76, 175, 80, 0.3)"/>
+    <rect x="205" y="155" width="15" height="25" fill="rgba(76, 175, 80, 0.3)"/>
+  </g>
+  
+  <!-- 像素鸟 -->
+  <g transform="translate(140, 90)" filter="url(#pixelGlow)">
+    <!-- 鸟身 -->
+    <rect x="0" y="5" width="20" height="10" fill="#e91e63" stroke="#c2185b" stroke-width="1"/>
+    <rect x="5" y="0" width="10" height="20" fill="#e91e63" stroke="#c2185b" stroke-width="1"/>
+    
+    <!-- 翅膀 -->
+    <rect x="-5" y="2" width="12" height="8" fill="#4a90e2" stroke="#3976d3" stroke-width="1"/>
+    
+    <!-- 眼睛 -->
+    <rect x="12" y="7" width="3" height="3" fill="#fff"/>
+    <rect x="13" y="8" width="1" height="1" fill="#000"/>
+    
+    <!-- 嘴巴 -->
+    <rect x="20" y="9" width="5" height="2" fill="#ff9800"/>
+    
+    <!-- 像素尾巴 -->
+    <rect x="-8" y="8" width="8" height="4" fill="#ad1457"/>
+  </g>
+  
+  <!-- 分数显示 -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="60" height="40" fill="rgba(15, 52, 96, 0.9)" stroke="#4a90e2" stroke-width="2"/>
+    <text x="30" y="15" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="10">SCORE</text>
+    <text x="30" y="30" text-anchor="middle" fill="#4caf50" font-family="Courier New" font-size="16" font-weight="bold">85</text>
+  </g>
+  
+  <!-- 最高分显示 -->
+  <g transform="translate(220, 20)">
+    <rect x="0" y="0" width="60" height="40" fill="rgba(15, 52, 96, 0.9)" stroke="#4a90e2" stroke-width="2"/>
+    <text x="30" y="15" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="10">BEST</text>
+    <text x="30" y="30" text-anchor="middle" fill="#ff9800" font-family="Courier New" font-size="16" font-weight="bold">156</text>
+  </g>
+  
+  <!-- 像素云 -->
+  <g opacity="0.6">
+    <rect x="40" y="30" width="8" height="8" fill="#7b68ee"/>
+    <rect x="48" y="30" width="8" height="8" fill="#7b68ee"/>
+    <rect x="56" y="30" width="8" height="8" fill="#7b68ee"/>
+    <rect x="44" y="22" width="8" height="8" fill="#7b68ee"/>
+    <rect x="52" y="22" width="8" height="8" fill="#7b68ee"/>
+    
+    <rect x="160" y="40" width="6" height="6" fill="#9c27b0"/>
+    <rect x="166" y="40" width="6" height="6" fill="#9c27b0"/>
+    <rect x="172" y="40" width="6" height="6" fill="#9c27b0"/>
+    <rect x="163" y="34" width="6" height="6" fill="#9c27b0"/>
+    <rect x="169" y="34" width="6" height="6" fill="#9c27b0"/>
+  </g>
+  
+  <!-- 像素装饰边框 -->
+  <g fill="#4a90e2" opacity="0.8">
+    <rect x="5" y="5" width="6" height="6"/>
+    <rect x="289" y="5" width="6" height="6"/>
+    <rect x="5" y="189" width="6" height="6"/>
+    <rect x="289" y="189" width="6" height="6"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="150" y="175" text-anchor="middle" fill="#f8f9fa" font-family="Courier New" font-size="18" font-weight="bold">FLAPPY BIRD</text>
+  
+  <!-- 游戏提示 -->
+  <rect x="50" y="120" width="200" height="20" fill="rgba(0, 0, 0, 0.8)" stroke="#4a90e2" stroke-width="1"/>
+  <text x="150" y="133" text-anchor="middle" fill="#b8c5d1" font-family="Courier New" font-size="12">[SPACE] TO FLY</text>
+  
+  <!-- 网格线效果 -->
+  <g opacity="0.2">
+    <rect x="0" y="20" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="40" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="60" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="80" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="100" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="120" width="300" height="1" fill="#7b68ee"/>
+    <rect x="0" y="140" width="300" height="1" fill="#4a90e2"/>
+    <rect x="0" y="160" width="300" height="1" fill="#7b68ee"/>
+  </g>
+</svg> 
