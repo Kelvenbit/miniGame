@@ -20,6 +20,11 @@ const games = {
         path: 'games/sudoku/index.html',
         description: '逻辑推理，填满9x9网格'
     },
+    solitaire: {
+        title: '纸牌接龙',
+        path: 'games/solitaire/index.html',
+        description: '经典纸牌游戏，按花色整理牌面'
+    },
     flappy: {
         title: '飞翔小鸟',
         path: 'games/flappy-bird/index.html',

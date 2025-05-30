@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸牌接龙 - 像素游戏合集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="header-left">
+                <a href="../../index.html" class="back-btn">← 返回主页</a>
+            </div>
+            <h1 class="game-title">SOLITAIRE</h1>
+            <div class="header-right">
+                <div class="score-display">
+                    <span class="score-label">得分:</span>
+                    <span class="score-value" id="score">0</span>
+                </div>
+                <div class="time-display">
+                    <span class="time-label">时间:</span>
+                    <span class="time-value" id="timer">00:00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 游戏主体 -->
+        <main class="game-main">
+            <!-- 游戏容器 -->
+            <div class="game-container">
+                <!-- 游戏区域 -->
+                <div class="game-area" id="gameArea">
+                    <!-- 顶部区域：发牌堆和目标堆 -->
+                    <div class="top-area">
+                        <!-- 发牌区 -->
+                        <div class="deal-area">
+                            <div class="stock-pile" id="stockPile">
+                                <div class="card-placeholder">牌堆</div>
+                            </div>
+                            <div class="waste-pile" id="wastePile">
+                                <div class="card-placeholder">翻牌</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 目标堆区域 -->
+                        <div class="foundation-area">
+                            <div class="foundation-pile" id="foundation0" data-suit="0">
+                                <div class="foundation-placeholder">♠</div>
+                            </div>
+                            <div class="foundation-pile" id="foundation1" data-suit="1">
+                                <div class="foundation-placeholder">♥</div>
+                            </div>
+                            <div class="foundation-pile" id="foundation2" data-suit="2">
+                                <div class="foundation-placeholder">♣</div>
+                            </div>
+                            <div class="foundation-pile" id="foundation3" data-suit="3">
+                                <div class="foundation-placeholder">♦</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 底部区域：游戏列 -->
+                    <div class="tableau-area">
+                        <div class="tableau-column" id="tableau0"></div>
+                        <div class="tableau-column" id="tableau1"></div>
+                        <div class="tableau-column" id="tableau2"></div>
+                        <div class="tableau-column" id="tableau3"></div>
+                        <div class="tableau-column" id="tableau4"></div>
+                        <div class="tableau-column" id="tableau5"></div>
+                        <div class="tableau-column" id="tableau6"></div>
+                    </div>
+                </div>
+                
+                <!-- 游戏覆盖层 -->
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 class="overlay-title" id="overlayTitle">纸牌接龙</h2>
+                        <p class="overlay-text" id="overlayText">经典的纸牌游戏，将所有牌按花色和顺序整理到目标堆</p>
+                        <div class="overlay-buttons">
+                            <button class="pixel-btn start-btn" id="startBtn">开始游戏</button>
+                            <button class="pixel-btn restart-btn" id="restartBtn" style="display: none;">重新开始</button>
+                        </div>
+                        <div class="difficulty-selector" id="difficultySelector">
+                            <h3>发牌模式:</h3>
+                            <div class="difficulty-buttons">
+                                <button class="difficulty-btn active" data-mode="1">单张翻牌</button>
+                                <button class="difficulty-btn" data-mode="3">三张翻牌</button>
+                            </div>
+                        </div>
+                        <div class="game-stats" id="gameStats" style="display: none;">
+                            <div class="stat-item">
+                                <span class="stat-label">完成时间:</span>
+                                <span class="stat-value" id="finalTime">00:00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">最终得分:</span>
+                                <span class="stat-value" id="finalScore">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">移动次数:</span>
+                                <span class="stat-value" id="moveCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">翻牌次数:</span>
+                                <span class="stat-value" id="dealCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏信息面板 -->
+            <aside class="game-info">
+                <div class="info-panel">
+                    <h3 class="panel-title">游戏信息</h3>
+                    <div class="info-item">
+                        <span class="info-label">得分:</span>
+                        <span class="info-value" id="currentScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏时间:</span>
+                        <span class="info-value" id="currentTime">00:00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">移动次数:</span>
+                        <span class="info-value" id="currentMoves">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">翻牌模式:</span>
+                        <span class="info-value" id="currentMode">单张</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">已完成:</span>
+                        <span class="info-value" id="completedSuits">0/4</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏状态:</span>
+                        <span class="info-value" id="gameStatus">等待开始</span>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <h3 class="panel-title">游戏控制</h3>
+                    <div class="control-buttons">
+                        <button class="pixel-btn small-btn" id="hintBtn">提示</button>
+                        <button class="pixel-btn small-btn" id="undoBtn">撤销</button>
+                        <button class="pixel-btn small-btn" id="autoBtn">自动完成</button>
+                        <button class="pixel-btn small-btn" id="resetBtn">重置</button>
+                    </div>
+                    <div class="deal-controls">
+                        <button class="pixel-btn deal-btn" id="dealBtn">翻牌</button>
+                        <span class="deal-info" id="dealInfo">牌堆: 24张</span>
+                    </div>
+                </div>
+
+                <div class="score-panel">
+                    <h3 class="panel-title">计分详情</h3>
+                    <div class="score-breakdown">
+                        <div class="score-item">
+                            <span class="score-desc">移至目标堆:</span>
+                            <span class="score-points" id="foundationScore">+10分</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-desc">翻开隐藏牌:</span>
+                            <span class="score-points" id="flipScore">+5分</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-desc">时间奖励:</span>
+                            <span class="score-points" id="timeBonus">0分</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-desc">完成奖励:</span>
+                            <span class="score-points" id="completionBonus">0分</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-panel">
+                    <h3 class="panel-title">游戏进度</h3>
+                    <div class="progress-suits">
+                        <div class="suit-progress" data-suit="spades">
+                            <span class="suit-icon">♠</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="spadesProgress"></div>
+                            </div>
+                            <span class="progress-text" id="spadesText">0/13</span>
+                        </div>
+                        <div class="suit-progress" data-suit="hearts">
+                            <span class="suit-icon">♥</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="heartsProgress"></div>
+                            </div>
+                            <span class="progress-text" id="heartsText">0/13</span>
+                        </div>
+                        <div class="suit-progress" data-suit="clubs">
+                            <span class="suit-icon">♣</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="clubsProgress"></div>
+                            </div>
+                            <span class="progress-text" id="clubsText">0/13</span>
+                        </div>
+                        <div class="suit-progress" data-suit="diamonds">
+                            <span class="suit-icon">♦</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="diamondsProgress"></div>
+                            </div>
+                            <span class="progress-text" id="diamondsText">0/13</span>
+                        </div>
+                    </div>
+                    <div class="overall-progress">
+                        <div class="overall-bar">
+                            <div class="overall-fill" id="overallProgress"></div>
+                        </div>
+                        <span class="overall-text" id="overallText">游戏进度: 0%</span>
+                    </div>
+                </div>
+
+                <div class="rules-panel">
+                    <h3 class="panel-title">游戏规则</h3>
+                    <ul class="rules-list">
+                        <li>将所有牌按花色A到K整理到目标堆</li>
+                        <li>游戏列中红黑相间降序排列</li>
+                        <li>只有K可以放在空列</li>
+                        <li>翻开隐藏牌获得分数</li>
+                        <li>移至目标堆获得更多分数</li>
+                        <li>完成所有花色即获胜</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- 游戏脚本 -->
+    <script src="game.js"></script>
+</body>
+</html> 
