@@ -15,6 +15,11 @@ const games = {
         path: 'games/2048/index.html',
         description: '数字合并，达到2048'
     },
+    sudoku: {
+        title: '数独',
+        path: 'games/sudoku/index.html',
+        description: '逻辑推理，填满9x9网格'
+    },
     flappy: {
         title: '飞翔小鸟',
         path: 'games/flappy-bird/index.html',

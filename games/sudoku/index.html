@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数独 - 像素游戏合集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="header-left">
+                <a href="../../index.html" class="back-btn">← 返回主页</a>
+            </div>
+            <h1 class="game-title">SUDOKU GAME</h1>
+            <div class="header-right">
+                <div class="score-display">
+                    <span class="score-label">时间:</span>
+                    <span class="score-value" id="timer">00:00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 游戏主体 -->
+        <main class="game-main">
+            <!-- 游戏容器 -->
+            <div class="game-container">
+                <div class="sudoku-board" id="sudokuBoard">
+                    <!-- 数独网格将由JavaScript生成 -->
+                </div>
+                
+                <!-- 游戏覆盖层 -->
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 class="overlay-title" id="overlayTitle">数独游戏</h2>
+                        <p class="overlay-text" id="overlayText">在9x9网格中填入数字1-9，使每行、每列、每个3x3宫格都不重复</p>
+                        <div class="overlay-buttons">
+                            <button class="pixel-btn start-btn" id="startBtn">开始游戏</button>
+                            <button class="pixel-btn restart-btn" id="restartBtn" style="display: none;">重新开始</button>
+                        </div>
+                        <div class="difficulty-selector" id="difficultySelector">
+                            <h3>选择难度:</h3>
+                            <div class="difficulty-buttons">
+                                <button class="difficulty-btn active" data-difficulty="easy">简单</button>
+                                <button class="difficulty-btn" data-difficulty="medium">中等</button>
+                                <button class="difficulty-btn" data-difficulty="hard">困难</button>
+                                <button class="difficulty-btn" data-difficulty="expert">专家</button>
+                            </div>
+                        </div>
+                        <div class="game-stats" id="gameStats" style="display: none;">
+                            <div class="stat-item">
+                                <span class="stat-label">完成时间:</span>
+                                <span class="stat-value" id="finalTime">00:00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">难度等级:</span>
+                                <span class="stat-value" id="finalDifficulty">简单</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">错误次数:</span>
+                                <span class="stat-value" id="errorCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">提示使用:</span>
+                                <span class="stat-value" id="hintCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏信息面板 -->
+            <aside class="game-info">
+                <div class="info-panel">
+                    <h3 class="panel-title">游戏信息</h3>
+                    <div class="info-item">
+                        <span class="info-label">难度:</span>
+                        <span class="info-value" id="currentDifficulty">简单</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏时间:</span>
+                        <span class="info-value" id="currentTime">00:00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">剩余空格:</span>
+                        <span class="info-value" id="remainingCells">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">错误次数:</span>
+                        <span class="info-value" id="currentErrors">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">提示剩余:</span>
+                        <span class="info-value" id="hintsLeft">3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">游戏状态:</span>
+                        <span class="info-value" id="gameStatus">等待开始</span>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <h3 class="panel-title">游戏控制</h3>
+                    <div class="number-pad">
+                        <button class="number-btn" data-number="1">1</button>
+                        <button class="number-btn" data-number="2">2</button>
+                        <button class="number-btn" data-number="3">3</button>
+                        <button class="number-btn" data-number="4">4</button>
+                        <button class="number-btn" data-number="5">5</button>
+                        <button class="number-btn" data-number="6">6</button>
+                        <button class="number-btn" data-number="7">7</button>
+                        <button class="number-btn" data-number="8">8</button>
+                        <button class="number-btn" data-number="9">9</button>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="pixel-btn small-btn" id="clearBtn">清除</button>
+                        <button class="pixel-btn small-btn" id="hintBtn">提示</button>
+                        <button class="pixel-btn small-btn" id="undoBtn">撤销</button>
+                        <button class="pixel-btn small-btn" id="checkBtn">检查</button>
+                    </div>
+                </div>
+
+                <div class="progress-panel">
+                    <h3 class="panel-title">完成进度</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <span class="progress-text" id="progressText">0%</span>
+                    </div>
+                    <div class="numbers-count">
+                        <div class="number-count" data-number="1">
+                            <span class="number">1</span>
+                            <span class="count" id="count1">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="2">
+                            <span class="number">2</span>
+                            <span class="count" id="count2">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="3">
+                            <span class="number">3</span>
+                            <span class="count" id="count3">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="4">
+                            <span class="number">4</span>
+                            <span class="count" id="count4">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="5">
+                            <span class="number">5</span>
+                            <span class="count" id="count5">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="6">
+                            <span class="number">6</span>
+                            <span class="count" id="count6">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="7">
+                            <span class="number">7</span>
+                            <span class="count" id="count7">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="8">
+                            <span class="number">8</span>
+                            <span class="count" id="count8">0/9</span>
+                        </div>
+                        <div class="number-count" data-number="9">
+                            <span class="number">9</span>
+                            <span class="count" id="count9">0/9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rules-panel">
+                    <h3 class="panel-title">游戏规则</h3>
+                    <ul class="rules-list">
+                        <li>在9x9网格中填入数字1-9</li>
+                        <li>每行都必须包含1-9所有数字</li>
+                        <li>每列都必须包含1-9所有数字</li>
+                        <li>每个3x3宫格也必须包含1-9</li>
+                        <li>预填数字不能修改</li>
+                        <li>完成所有空格即获胜</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- 游戏脚本 -->
+    <script src="game.js"></script>
+</body>
+</html> 
