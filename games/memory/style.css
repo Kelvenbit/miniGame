@@ -1,0 +1,828 @@
+/* 记忆卡片游戏样式 - 像素风格 */
+:root {
+    /* 继承主题配色 */
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --card-bg: #0f3460;
+    --accent-color: #4a90e2;
+    --secondary-accent: #7b68ee;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+    --text-primary: #f8f9fa;
+    --text-secondary: #b8c5d1;
+    --text-muted: #6c757d;
+    --border-color: #4a90e2;
+    --hover-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    
+    /* 像素字体 */
+    --pixel-font: 'Courier New', monospace;
+    
+    /* 记忆卡片特定颜色 */
+    --card-back: #2c3e50;
+    --card-front: #ecf0f1;
+    --card-border: #34495e;
+    --match-glow: #27ae60;
+    --flip-glow: #f39c12;
+    --hint-glow: #e74c3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--pixel-font);
+    background: var(--primary-bg);
+    background-image: 
+        linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%),
+        radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(123, 104, 238, 0.1) 0%, transparent 50%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* 游戏头部 */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 2rem;
+    background: rgba(22, 33, 62, 0.8);
+}
+
+.back-btn {
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    transition: all 0.3s ease;
+    font-family: var(--pixel-font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.back-btn:hover {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    box-shadow: var(--hover-shadow);
+}
+
+.game-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0px var(--accent-color);
+}
+
+.header-right {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.score-display, .time-display {
+    text-align: right;
+}
+
+.score-label, .time-label {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.score-value, .time-value {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* 游戏主体布局 */
+.game-main {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* 游戏容器 */
+.game-container {
+    position: relative;
+    background: var(--secondary-bg);
+    border: 3px solid var(--border-color);
+    padding: 2rem;
+    min-height: 700px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 游戏区域 */
+.game-area {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 卡片网格 */
+.cards-grid {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 不同难度的网格布局 */
+.cards-grid.easy {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.cards-grid.medium {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.cards-grid.hard {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.cards-grid.expert {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+/* 精美的记忆卡片样式 */
+.memory-card {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.memory-card:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 匹配卡片的绝对控制样式 */
+.memory-card.matched {
+    animation: matchPulse 0.6s ease-in-out;
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+.memory-card.matched * {
+    pointer-events: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.memory-card.matched .card-inner {
+    transform: rotateY(180deg) !important;
+    filter: drop-shadow(0 0 10px var(--match-glow));
+    transition: none !important;
+}
+
+/* 为匹配的卡片添加特殊的发光效果 */
+.memory-card.matched .card-front {
+    background: linear-gradient(135deg, #ecf0f1 0%, #f8f9fa 100%) !important;
+    border: 3px solid var(--match-glow) !important;
+    box-shadow: 0 0 15px var(--match-glow), inset 0 0 10px rgba(39, 174, 96, 0.1) !important;
+    transform: rotateY(0deg) !important;
+    backface-visibility: visible !important;
+}
+
+.memory-card.matched .card-back {
+    display: none !important;
+}
+
+/* 确保匹配的卡片始终显示正面 - 最高优先级 */
+.memory-card.matched.flipped .card-inner,
+.memory-card.matched .card-inner {
+    transform: rotateY(180deg) !important;
+    transition: none !important;
+}
+
+/* 防止任何hover效果影响匹配的卡片 */
+.memory-card.matched:hover {
+    transform: none !important;
+    transition: none !important;
+}
+
+.memory-card.matched:hover .card-inner {
+    transform: rotateY(180deg) !important;
+    transition: none !important;
+}
+
+.memory-card.hint {
+    animation: hintGlow 1s ease-in-out infinite;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    border: 2px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: var(--card-shadow);
+}
+
+.card-back {
+    background: linear-gradient(135deg, var(--card-back) 0%, #34495e 100%);
+    color: var(--accent-color);
+}
+
+.card-back::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--accent-color),
+        var(--accent-color) 2px,
+        transparent 2px,
+        transparent 8px
+    );
+    opacity: 0.6;
+    border-radius: 4px;
+}
+
+.card-front {
+    background: var(--card-front);
+    color: var(--text-primary);
+    transform: rotateY(180deg);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片图案样式 */
+.card-symbol {
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 不同类型的图案颜色 */
+.symbol-heart, .symbol-diamond {
+    color: #e74c3c;
+}
+
+.symbol-club, .symbol-spade {
+    color: #2c3e50;
+}
+
+.symbol-star {
+    color: #f1c40f;
+}
+
+.symbol-circle {
+    color: #3498db;
+}
+
+.symbol-square {
+    color: #9b59b6;
+}
+
+.symbol-triangle {
+    color: #e67e22;
+}
+
+/* 游戏覆盖层 */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.overlay-content {
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    padding: 2rem;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: var(--card-shadow);
+}
+
+.overlay-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.overlay-text {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.overlay-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+/* 难度选择器 */
+.difficulty-selector {
+    margin-bottom: 2rem;
+}
+
+.difficulty-selector h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.difficulty-btn {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--pixel-font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+}
+
+.difficulty-btn:hover,
+.difficulty-btn.active {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+/* 像素按钮 */
+.pixel-btn {
+    background: var(--accent-color);
+    color: var(--text-primary);
+    border: 2px solid var(--accent-color);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--pixel-font);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.pixel-btn:hover {
+    background: var(--secondary-accent);
+    border-color: var(--secondary-accent);
+    box-shadow: var(--hover-shadow);
+    transform: translateY(-2px);
+}
+
+.pixel-btn:active {
+    transform: translateY(0);
+}
+
+.pixel-btn.small-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.pixel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 游戏信息面板 */
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-panel,
+.control-panel,
+.progress-panel,
+.score-panel,
+.stats-panel,
+.rules-panel {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.panel-title {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* 控制按钮 */
+.control-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.hint-info {
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.hint-text {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* 进度条 */
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(52, 73, 94, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-accent));
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.progress-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.progress-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.progress-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.progress-value {
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* 计分面板 */
+.score-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.score-desc {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.score-points {
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* 统计网格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 规则列表 */
+.rules-list {
+    list-style: none;
+    padding: 0;
+}
+
+.rules-list li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.rules-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-size: 0.7rem;
+}
+
+/* 游戏统计 */
+.game-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.stat-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    display: block;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* 动画效果 */
+@keyframes matchPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes hintGlow {
+    0%, 100% { 
+        box-shadow: 0 0 5px var(--hint-glow);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 20px var(--hint-glow);
+        transform: scale(1.05);
+    }
+}
+
+@keyframes flipCard {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(180deg); }
+}
+
+@keyframes victoryBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.card-flipping {
+    animation: flipCard 0.6s ease-in-out;
+}
+
+.victory-animation {
+    animation: victoryBounce 0.8s ease-in-out infinite;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .game-main {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .game-info {
+        order: -1;
+    }
+    
+    .memory-card {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .card-symbol {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .header-right {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .game-title {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .memory-card {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .card-symbol {
+        font-size: 2.2rem;
+    }
+    
+    .cards-grid {
+        gap: 0.5rem;
+    }
+    
+    .overlay-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .difficulty-buttons {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .control-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .memory-card {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .card-symbol {
+        font-size: 1.8rem;
+    }
+    
+    .cards-grid {
+        gap: 0.3rem;
+        padding: 0.5rem;
+    }
+    
+    .progress-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .overlay-title {
+        font-size: 1.5rem;
+    }
+} 

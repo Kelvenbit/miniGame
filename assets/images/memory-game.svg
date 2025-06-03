@@ -1,233 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" style="background: #0f3460;">
   <defs>
-    <linearGradient id="cyberBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a0a0a;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#1a0826;stop-opacity:1"/>
-    </linearGradient>
-    <filter id="neonGlow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-      <feMerge> 
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <pattern id="circuitPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="20" height="20" fill="none" stroke="#bf00ff" stroke-width="0.5" opacity="0.15"/>
-      <circle cx="10" cy="10" r="1" fill="#00ffff" opacity="0.3"/>
+    <pattern id="cardPattern" patternUnits="userSpaceOnUse" width="4" height="4">
+      <rect width="4" height="4" fill="#4a90e2"/>
+      <rect width="2" height="2" fill="#7b68ee"/>
     </pattern>
   </defs>
   
   <!-- 背景 -->
-  <rect width="300" height="200" fill="url(#cyberBg)"/>
+  <rect width="64" height="64" fill="#1a1a2e"/>
   
-  <!-- 电路板背景 -->
-  <rect width="300" height="200" fill="url(#circuitPattern)"/>
+  <!-- 卡片背面 -->
+  <rect x="8" y="12" width="14" height="18" fill="#2c3e50" stroke="#4a90e2" stroke-width="1"/>
+  <rect x="10" y="14" width="10" height="14" fill="url(#cardPattern)" opacity="0.6"/>
   
-  <!-- 游戏区域背景 -->
-  <rect x="50" y="50" width="200" height="100" fill="rgba(45, 27, 105, 0.8)" stroke="#00ffff" stroke-width="2"/>
+  <rect x="26" y="12" width="14" height="18" fill="#2c3e50" stroke="#4a90e2" stroke-width="1"/>
+  <rect x="28" y="14" width="10" height="14" fill="url(#cardPattern)" opacity="0.6"/>
   
-  <!-- 卡片网格 -->
-  <g>
-    <!-- 第一行 -->
-    <!-- 背面卡片1 -->
-    <g transform="translate(60, 60)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <!-- 翻开的卡片1 - 霓虹心形 -->
-    <g transform="translate(95, 60)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#ff00ff" stroke="#ff0080" stroke-width="2"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(255, 0, 255, 0.4)"/>
-      <!-- 像素心形 -->
-      <rect x="8" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="14" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="6" y="7" width="7" height="2" fill="#fff"/>
-      <rect x="14" y="7" width="3" height="2" fill="#fff"/>
-      <rect x="8" y="9" width="5" height="2" fill="#fff"/>
-      <rect x="10" y="11" width="1" height="1" fill="#fff"/>
-    </g>
-    
-    <!-- 背面卡片2 -->
-    <g transform="translate(130, 60)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <!-- 翻开的卡片2 - 霓虹星星 -->
-    <g transform="translate(165, 60)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#00ffff" stroke="#0080ff" stroke-width="2"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(0, 255, 255, 0.4)"/>
-      <!-- 像素星星 -->
-      <rect x="12" y="4" width="1" height="7" fill="#fff"/>
-      <rect x="8" y="7" width="9" height="1" fill="#fff"/>
-      <rect x="9" y="5" width="7" height="1" fill="#fff"/>
-      <rect x="9" y="9" width="7" height="1" fill="#fff"/>
-    </g>
-    
-    <!-- 背面卡片3 -->
-    <g transform="translate(200, 60)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <!-- 第二行 -->
-    <!-- 匹配成功的卡片对 - 霓虹心形 -->
-    <g transform="translate(60, 85)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#39ff14" stroke="#00ff00" stroke-width="3"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(57, 255, 20, 0.4)"/>
-      <!-- 匹配成功效果 -->
-      <rect x="-2" y="-2" width="29" height="19" fill="none" stroke="#00ff00" stroke-width="1" opacity="0.6">
-        <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
-      </rect>
-      <!-- 像素心形 -->
-      <rect x="8" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="14" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="6" y="7" width="7" height="2" fill="#fff"/>
-      <rect x="14" y="7" width="3" height="2" fill="#fff"/>
-      <rect x="8" y="9" width="5" height="2" fill="#fff"/>
-      <rect x="10" y="11" width="1" height="1" fill="#fff"/>
-    </g>
-    
-    <g transform="translate(95, 85)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#39ff14" stroke="#00ff00" stroke-width="3"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(57, 255, 20, 0.4)"/>
-      <!-- 匹配成功效果 -->
-      <rect x="-2" y="-2" width="29" height="19" fill="none" stroke="#00ff00" stroke-width="1" opacity="0.6">
-        <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
-      </rect>
-      <!-- 像素心形 -->
-      <rect x="8" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="14" y="5" width="3" height="2" fill="#fff"/>
-      <rect x="6" y="7" width="7" height="2" fill="#fff"/>
-      <rect x="14" y="7" width="3" height="2" fill="#fff"/>
-      <rect x="8" y="9" width="5" height="2" fill="#fff"/>
-      <rect x="10" y="11" width="1" height="1" fill="#fff"/>
-    </g>
-    
-    <!-- 背面卡片4 -->
-    <g transform="translate(130, 85)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <!-- 翻开的卡片3 - 霓虹钻石 -->
-    <g transform="translate(165, 85)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#ffff00" stroke="#ffff80" stroke-width="2"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(255, 255, 0, 0.4)"/>
-      <!-- 像素钻石 -->
-      <rect x="12" y="4" width="1" height="1" fill="#000"/>
-      <rect x="10" y="5" width="5" height="1" fill="#000"/>
-      <rect x="8" y="6" width="9" height="1" fill="#000"/>
-      <rect x="10" y="7" width="5" height="1" fill="#000"/>
-      <rect x="11" y="8" width="3" height="1" fill="#000"/>
-      <rect x="12" y="9" width="1" height="1" fill="#000"/>
-    </g>
-    
-    <!-- 背面卡片5 -->
-    <g transform="translate(200, 85)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <!-- 第三行 -->
-    <!-- 背面卡片6-10 -->
-    <g transform="translate(60, 110)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <g transform="translate(95, 110)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <g transform="translate(130, 110)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <g transform="translate(165, 110)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-    
-    <g transform="translate(200, 110)" filter="url(#neonGlow)">
-      <rect x="0" y="0" width="25" height="15" fill="#2d1b69" stroke="#bf00ff" stroke-width="1"/>
-      <rect x="2" y="2" width="21" height="11" fill="rgba(191, 0, 255, 0.2)"/>
-      <rect x="10" y="6" width="5" height="3" fill="#bf00ff"/>
-      <text x="12.5" y="9" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="6">?</text>
-    </g>
-  </g>
+  <rect x="8" y="34" width="14" height="18" fill="#2c3e50" stroke="#4a90e2" stroke-width="1"/>
+  <rect x="10" y="36" width="10" height="14" fill="url(#cardPattern)" opacity="0.6"/>
   
-  <!-- 游戏统计面板 -->
-  <g transform="translate(15, 60)">
-    <rect x="0" y="0" width="30" height="65" fill="rgba(45, 27, 105, 0.9)" stroke="#00ffff" stroke-width="2"/>
-    <text x="15" y="12" text-anchor="middle" fill="#00ffff" font-family="Courier New" font-size="8">PAIRS</text>
-    <text x="15" y="22" text-anchor="middle" fill="#39ff14" font-family="Courier New" font-size="14" font-weight="bold">1/8</text>
-    <text x="15" y="35" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="8">FLIPS</text>
-    <text x="15" y="45" text-anchor="middle" fill="#ffff00" font-family="Courier New" font-size="12" font-weight="bold">12</text>
-    <text x="15" y="58" text-anchor="middle" fill="#bf00ff" font-family="Courier New" font-size="8">TIME</text>
-    <text x="15" y="68" text-anchor="middle" fill="#ff8000" font-family="Courier New" font-size="10" font-weight="bold">1:24</text>
-  </g>
+  <!-- 翻开的卡片 -->
+  <rect x="26" y="34" width="14" height="18" fill="#ecf0f1" stroke="#4a90e2" stroke-width="1"/>
+  <text x="33" y="45" fill="#e74c3c" font-family="monospace" font-size="12" text-anchor="middle">♥</text>
   
-  <g transform="translate(255, 60)">
-    <rect x="0" y="0" width="30" height="65" fill="rgba(45, 27, 105, 0.9)" stroke="#ff00ff" stroke-width="2"/>
-    <text x="15" y="12" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="8">LEVEL</text>
-    <text x="15" y="22" text-anchor="middle" fill="#00ffff" font-family="Courier New" font-size="14" font-weight="bold">03</text>
-    <text x="15" y="35" text-anchor="middle" fill="#39ff14" font-family="Courier New" font-size="8">SCORE</text>
-    <text x="15" y="45" text-anchor="middle" fill="#ffff00" font-family="Courier New" font-size="10" font-weight="bold">450</text>
-    <text x="15" y="58" text-anchor="middle" fill="#ff8000" font-family="Courier New" font-size="8">COMBO</text>
-    <text x="15" y="68" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="12" font-weight="bold">x2</text>
-  </g>
+  <rect x="44" y="12" width="14" height="18" fill="#ecf0f1" stroke="#4a90e2" stroke-width="1"/>
+  <text x="51" y="23" fill="#e74c3c" font-family="monospace" font-size="12" text-anchor="middle">♥</text>
   
-  <!-- 标题 -->
-  <text x="150" y="25" text-anchor="middle" fill="#ff00ff" font-family="Courier New" font-size="20" font-weight="bold" filter="url(#neonGlow)">CYBER MEMORY</text>
+  <rect x="44" y="34" width="14" height="18" fill="#ecf0f1" stroke="#4a90e2" stroke-width="1"/>
+  <text x="51" y="45" fill="#2c3e50" font-family="monospace" font-size="12" text-anchor="middle">♠</text>
   
-  <!-- 底部提示 -->
-  <rect x="50" y="165" width="200" height="20" fill="rgba(0, 0, 0, 0.8)" stroke="#00ffff" stroke-width="1"/>
-  <text x="150" y="178" text-anchor="middle" fill="#00ffff" font-family="Courier New" font-size="12">[CLICK] TO FLIP</text>
-  
-  <!-- 扫描线效果 -->
-  <g opacity="0.2">
-    <rect x="0" y="30" width="300" height="1" fill="#00ffff"/>
-    <rect x="0" y="60" width="300" height="1" fill="#ff00ff"/>
-    <rect x="0" y="90" width="300" height="1" fill="#00ffff"/>
-    <rect x="0" y="120" width="300" height="1" fill="#ff00ff"/>
-    <rect x="0" y="150" width="300" height="1" fill="#00ffff"/>
-  </g>
-  
-  <!-- 数据流装饰 -->
-  <g opacity="0.4">
-    <text x="25" y="40" fill="#39ff14" font-family="Courier New" font-size="8">01</text>
-    <text x="275" y="45" fill="#00ffff" font-size="8">10</text>
-    <text x="35" y="140" fill="#ff00ff" font-size="8">11</text>
-    <text x="265" y="135" fill="#39ff14" font-size="8">00</text>
-  </g>
+  <!-- 匹配连线效果 -->
+  <line x1="33" y1="43" x2="51" y2="21" stroke="#4caf50" stroke-width="2" opacity="0.8"/>
+  <circle cx="33" cy="43" r="2" fill="#4caf50"/>
+  <circle cx="51" cy="21" r="2" fill="#4caf50"/>
   
   <!-- 像素装饰 -->
-  <g fill="#00ffff" opacity="0.7">
-    <rect x="5" y="5" width="6" height="6"/>
-    <rect x="289" y="5" width="6" height="6"/>
-    <rect x="5" y="189" width="6" height="6"/>
-    <rect x="289" y="189" width="6" height="6"/>
-  </g>
+  <rect x="2" y="2" width="2" height="2" fill="#4a90e2"/>
+  <rect x="60" y="2" width="2" height="2" fill="#4a90e2"/>
+  <rect x="2" y="60" width="2" height="2" fill="#4a90e2"/>
+  <rect x="60" y="60" width="2" height="2" fill="#4a90e2"/>
 </svg> 
