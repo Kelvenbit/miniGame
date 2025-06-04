@@ -39,6 +39,11 @@ const games = {
         title: '记忆卡片',
         path: 'games/memory/index.html',
         description: '翻开卡片，找到相同图案'
+    },
+    'click-speed': {
+        title: '点击速度测试',
+        path: 'games/click-speed/index.html',
+        description: '测试反应速度和点击能力'
     }
 };
 
@@ -51,12 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // 初始化游戏卡片事件
 function initializeGameCards() {
     const gameCards = document.querySelectorAll('.game-card');
+    console.log('找到游戏卡片数量:', gameCards.length);
     
     gameCards.forEach(card => {
         const gameType = card.dataset.game;
+        console.log('初始化游戏卡片:', gameType);
         
         // 点击事件
         card.addEventListener('click', () => {
+            console.log('点击游戏卡片:', gameType);
             openGame(gameType);
         });
         
@@ -75,37 +83,18 @@ function initializeGameCards() {
 
 // 打开游戏
 function openGame(gameType) {
+    console.log('尝试打开游戏:', gameType);
     const game = games[gameType];
     
     if (!game) {
+        console.log('游戏配置不存在:', gameType);
         showMessage('游戏暂未开发完成，敬请期待！', 'warning');
         return;
     }
     
-    // 检查游戏文件是否存在
-    checkGameExists(game.path)
-        .then(exists => {
-            if (exists) {
-                // 游戏存在，打开新页面
-                window.open(game.path, '_blank');
-            } else {
-                // 游戏不存在，显示提示
-                showMessage(`${game.title} 正在开发中，敬请期待！`, 'info');
-            }
-        })
-        .catch(() => {
-            showMessage(`${game.title} 正在开发中，敬请期待！`, 'info');
-        });
-}
-
-// 检查游戏文件是否存在
-async function checkGameExists(path) {
-    try {
-        const response = await fetch(path, { method: 'HEAD' });
-        return response.ok;
-    } catch {
-        return false;
-    }
+    console.log('打开游戏路径:', game.path);
+    // 直接打开游戏页面
+    window.location.href = game.path;
 }
 
 // 显示消息提示

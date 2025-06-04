@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="puzzleBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.2"/>
+    </linearGradient>
+    <linearGradient id="piece1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="piece2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="piece3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dcfce7;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="piece4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fed7d7;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="piece5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3e8ff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="piece6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef2f2;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="pieceGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="#0f172a"/>
+  <rect width="300" height="200" fill="url(#puzzleBg)"/>
+  
+  <!-- 拼图边框 -->
+  <rect x="75" y="40" width="150" height="120" fill="#334155" rx="8" stroke="#475569" stroke-width="2"/>
+  
+  <!-- 九宫格网格线 -->
+  <g stroke="#475569" stroke-width="1" fill="none">
+    <!-- 垂直线 -->
+    <line x1="125" y1="40" x2="125" y2="160"/>
+    <line x1="175" y1="40" x2="175" y2="160"/>
+    <!-- 水平线 -->
+    <line x1="75" y1="80" x2="225" y2="80"/>
+    <line x1="75" y1="120" x2="225" y2="120"/>
+  </g>
+  
+  <!-- 拼图块 -->
+  <g filter="url(#pieceGlow)">
+    <!-- 第一行 -->
+    <rect x="80" y="45" width="40" height="30" fill="url(#piece1)" rx="4" stroke="#fbbf24" stroke-width="1"/>
+    <text x="100" y="62" text-anchor="middle" fill="#78716c" font-size="16" font-weight="bold" font-family="Arial">1</text>
+    
+    <rect x="130" y="45" width="40" height="30" fill="url(#piece2)" rx="4" stroke="#3b82f6" stroke-width="1"/>
+    <text x="150" y="62" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">2</text>
+    
+    <rect x="180" y="45" width="40" height="30" fill="url(#piece3)" rx="4" stroke="#22c55e" stroke-width="1"/>
+    <text x="200" y="62" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">3</text>
+    
+    <!-- 第二行 -->
+    <rect x="80" y="85" width="40" height="30" fill="url(#piece4)" rx="4" stroke="#ef4444" stroke-width="1"/>
+    <text x="100" y="102" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">4</text>
+    
+    <rect x="130" y="85" width="40" height="30" fill="url(#piece5)" rx="4" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="150" y="102" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">5</text>
+    
+    <rect x="180" y="85" width="40" height="30" fill="url(#piece6)" rx="4" stroke="#f97316" stroke-width="1"/>
+    <text x="200" y="102" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">6</text>
+    
+    <!-- 第三行 -->
+    <rect x="80" y="125" width="40" height="30" fill="url(#piece1)" rx="4" stroke="#fbbf24" stroke-width="1"/>
+    <text x="100" y="142" text-anchor="middle" fill="#78716c" font-size="16" font-weight="bold" font-family="Arial">7</text>
+    
+    <rect x="130" y="125" width="40" height="30" fill="url(#piece2)" rx="4" stroke="#3b82f6" stroke-width="1"/>
+    <text x="150" y="142" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold" font-family="Arial">8</text>
+    
+    <!-- 空白位置 -->
+    <rect x="180" y="125" width="40" height="30" fill="#1e293b" rx="4" stroke="#475569" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  </g>
+  
+  <!-- 移动中的拼图块 -->
+  <g transform="translate(240, 90)" filter="url(#pieceGlow)">
+    <rect x="0" y="0" width="35" height="25" fill="url(#piece3)" rx="4" stroke="#22c55e" stroke-width="2" opacity="0.8"/>
+    <text x="17.5" y="15" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="Arial">9</text>
+    <!-- 移动轨迹 -->
+    <path d="M 17.5 12.5 Q 30 25 45 40" stroke="#22c55e" stroke-width="2" stroke-dasharray="3,3" fill="none" opacity="0.6">
+      <animate attributeName="stroke-dashoffset" values="0;-6" dur="1s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- 左侧装饰拼图块 -->
+  <g transform="translate(20, 80)" opacity="0.4">
+    <rect x="0" y="0" width="25" height="20" fill="url(#piece4)" rx="3"/>
+    <rect x="0" y="25" width="25" height="20" fill="url(#piece5)" rx="3"/>
+    <rect x="0" y="50" width="25" height="20" fill="url(#piece6)" rx="3"/>
+  </g>
+  
+  <!-- 移动提示箭头 -->
+  <g transform="translate(200, 105)" opacity="0.7">
+    <path d="M 0 0 L 15 5 L 0 10 L 3 5 Z" fill="#fbbf24">
+      <animateTransform attributeName="transform" attributeType="XML" type="translate" 
+        values="0 0; 10 0; 0 0" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="150" y="25" text-anchor="middle" fill="#8b5cf6" font-size="20" font-weight="bold" font-family="Arial">PUZZLE</text>
+  
+  <!-- 步数显示 -->
+  <g transform="translate(250, 50)">
+    <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Arial">MOVES</text>
+    <text x="0" y="15" text-anchor="middle" fill="#22c55e" font-size="16" font-weight="bold" font-family="Arial">24</text>
+  </g>
+  
+  <!-- 时间显示 -->
+  <g transform="translate(250, 140)">
+    <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="Arial">TIME</text>
+    <text x="0" y="15" text-anchor="middle" fill="#f59e0b" font-size="16" font-weight="bold" font-family="Arial">1:23</text>
+  </g>
+  
+  <!-- 装饰星星 -->
+  <g fill="#8b5cf6" opacity="0.6">
+    <polygon points="50,50 52,56 58,56 53,60 55,66 50,62 45,66 47,60 42,56 48,56" transform="scale(0.6)"/>
+    <polygon points="260,30 262,36 268,36 263,40 265,46 260,42 255,46 257,40 252,36 258,36" transform="scale(0.5)"/>
+  </g>
+  
+  <!-- 底部提示 -->
+  <text x="150" y="185" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Arial">滑动拼图块完成图案</text>
+</svg> 

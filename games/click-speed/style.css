@@ -1,0 +1,730 @@
+/* 极限反应速度测试游戏样式 */
+:root {
+    /* 沿用主样式的像素风格配色方案 */
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --card-bg: #0f3460;
+    --accent-color: #4a90e2;
+    --secondary-accent: #7b68ee;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --danger-color: #f44336;
+    --text-primary: #f8f9fa;
+    --text-secondary: #b8c5d1;
+    --text-muted: #6c757d;
+    --border-color: #4a90e2;
+    --hover-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    
+    /* 极限反应速度专用颜色 */
+    --wait-color: #f44336;      /* 等待状态 - 红色 */
+    --ready-color: #4caf50;     /* 准备状态 - 绿色 */
+    --early-color: #ff9800;     /* 过早点击 - 橙色 */
+    --result-color: #2196f3;    /* 结果显示 - 蓝色 */
+    --timeout-color: #757575;   /* 超时状态 - 灰色 */
+    
+    /* 极限等级颜色 */
+    --godlike-color: #e91e63;      /* 神级 - 粉红 */
+    --superhuman-color: #9c27b0;   /* 超人 - 紫色 */
+    --legendary-color: #ff5722;    /* 传奇 - 深橙 */
+    --excellent-color: #4caf50;    /* 优秀 - 绿色 */
+    --good-color: #2196f3;         /* 良好 - 蓝色 */
+    --average-color: #ff9800;      /* 一般 - 橙色 */
+    --slow-color: #ff5722;         /* 较慢 - 红橙 */
+    --poor-color: #f44336;         /* 很慢 - 红色 */
+    
+    /* 像素字体 */
+    --pixel-font: 'Courier New', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--pixel-font);
+    background: var(--primary-bg);
+    background-image: 
+        linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%),
+        radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(123, 104, 238, 0.1) 0%, transparent 50%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    user-select: none;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 游戏头部样式 */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+.header-left .back-btn {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--accent-color);
+    background: rgba(74, 144, 226, 0.1);
+    transition: all 0.3s ease;
+}
+
+.header-left .back-btn:hover {
+    background: var(--accent-color);
+    color: var(--primary-bg);
+    box-shadow: var(--hover-shadow);
+}
+
+.game-title {
+    font-size: 2rem;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0px var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: 3px solid var(--accent-color);
+    padding: 0.5rem 1.5rem;
+    background: rgba(74, 144, 226, 0.1);
+}
+
+.header-right {
+    display: flex;
+    gap: 2rem;
+}
+
+.score-display, .time-display {
+    text-align: center;
+}
+
+.score-label, .time-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-value, .time-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* 游戏主体 */
+.game-main {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.game-container {
+    flex: 2;
+    position: relative;
+}
+
+.game-area {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 0;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+}
+
+/* 极限反应测试区域样式 */
+.reaction-zone {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 600px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 20px,
+            rgba(74, 144, 226, 0.05) 20px,
+            rgba(74, 144, 226, 0.05) 22px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            rgba(123, 104, 238, 0.05) 20px,
+            rgba(123, 104, 238, 0.05) 22px
+        );
+}
+
+.reaction-circle {
+    width: 300px;
+    height: 300px;
+    border: 4px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--secondary-bg);
+    cursor: pointer;
+    /* 移除所有过渡效果以确保极限精度 */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 
+        0 0 0 4px var(--primary-bg),
+        0 0 0 8px var(--accent-color),
+        var(--card-shadow);
+    /* 优化性能 */
+    will-change: background-color, border-color;
+    transform: translateZ(0);
+}
+
+/* 移除所有圆圈状态动画 - 确保极限精度 */
+.reaction-circle.waiting {
+    /* 样式通过JavaScript直接设置 */
+}
+
+.reaction-circle.ready {
+    /* 样式通过JavaScript直接设置 */
+}
+
+.reaction-circle.early {
+    /* 样式通过JavaScript直接设置 */
+}
+
+.circle-content {
+    text-align: center;
+    color: var(--text-primary);
+    pointer-events: none; /* 防止事件冲突 */
+}
+
+.status-text {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.instruction-text {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 游戏覆盖层 */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+.game-overlay.hidden {
+    display: none;
+}
+
+.overlay-content {
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    padding: 2rem;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--card-shadow);
+}
+
+.overlay-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.overlay-text {
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.overlay-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.pixel-btn {
+    background: var(--accent-color);
+    color: var(--primary-bg);
+    border: 2px solid var(--accent-color);
+    padding: 0.8rem 1.5rem;
+    font-family: var(--pixel-font);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.pixel-btn:hover {
+    background: var(--secondary-accent);
+    border-color: var(--secondary-accent);
+    box-shadow: var(--hover-shadow);
+    transform: translateY(-2px);
+}
+
+.pixel-btn:active {
+    transform: translateY(0);
+}
+
+/* 测试设置样式 */
+.test-settings h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.setting-item label {
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.setting-item select {
+    background: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 0.3rem 0.5rem;
+    font-family: var(--pixel-font);
+    border-radius: 0;
+}
+
+.setting-item select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.game-stats {
+    margin-top: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* 游戏信息面板 */
+.game-info {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.info-panel, .progress-panel, .rating-panel, .stats-panel {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+.panel-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* 进度条 */
+.progress-bar-container {
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-accent));
+    width: 0%;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 4px,
+            rgba(255, 255, 255, 0.2) 4px,
+            rgba(255, 255, 255, 0.2) 8px
+        );
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* 极限反应时间图表 */
+.reaction-chart {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.chart-title {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chart-container {
+    height: 150px;
+    background: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    padding: 1rem;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    gap: 2px;
+    overflow-x: auto;
+}
+
+.chart-bar {
+    min-width: 12px;
+    background: var(--accent-color);
+    border-radius: 2px 2px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chart-bar:hover {
+    background: var(--secondary-accent);
+}
+
+.chart-bar::after {
+    content: attr(data-value);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    padding: 2px 4px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chart-bar:hover::after {
+    opacity: 1;
+}
+
+/* 极限等级样式 */
+.rating-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rating-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.rating-item:hover {
+    background: rgba(74, 144, 226, 0.2);
+}
+
+.rating-item.active {
+    color: var(--primary-bg);
+    font-weight: bold;
+}
+
+/* 极限等级激活状态颜色 */
+.rating-item[data-level="godlike"].active {
+    background: var(--godlike-color);
+    border-color: var(--godlike-color);
+}
+
+.rating-item[data-level="superhuman"].active {
+    background: var(--superhuman-color);
+    border-color: var(--superhuman-color);
+}
+
+.rating-item[data-level="legendary"].active {
+    background: var(--legendary-color);
+    border-color: var(--legendary-color);
+}
+
+.rating-item[data-level="excellent"].active {
+    background: var(--excellent-color);
+    border-color: var(--excellent-color);
+}
+
+.rating-item[data-level="good"].active {
+    background: var(--good-color);
+    border-color: var(--good-color);
+}
+
+.rating-item[data-level="average"].active {
+    background: var(--average-color);
+    border-color: var(--average-color);
+}
+
+.rating-item[data-level="slow"].active {
+    background: var(--slow-color);
+    border-color: var(--slow-color);
+}
+
+.rating-item[data-level="poor"].active {
+    background: var(--poor-color);
+    border-color: var(--poor-color);
+}
+
+.rating-name {
+    font-weight: bold;
+}
+
+.rating-range {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.rating-item.active .rating-range {
+    color: var(--primary-bg);
+}
+
+/* 统计网格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    border-color: var(--secondary-accent);
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 页脚 */
+.game-footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    border-top: 2px solid var(--border-color);
+    background: var(--card-bg);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .game-main {
+        flex-direction: column;
+    }
+    
+    .game-info {
+        max-height: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .info-panel, .progress-panel, .rating-panel, .stats-panel {
+        flex: 1;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .header-right {
+        gap: 1rem;
+    }
+    
+    .reaction-circle {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .status-text {
+        font-size: 1.5rem;
+    }
+    
+    .overlay-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .setting-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .game-info {
+        flex-direction: column;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.5rem;
+        padding: 0.3rem 1rem;
+    }
+    
+    .reaction-circle {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .status-text {
+        font-size: 1.2rem;
+    }
+    
+    .instruction-text {
+        font-size: 1rem;
+    }
+} 

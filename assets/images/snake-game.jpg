@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#166534;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#14532d;stop-opacity:0.3"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="#0f172a"/>
+  <rect width="300" height="200" fill="url(#bgGrad)"/>
+  
+  <!-- 网格背景 -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e293b" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="300" height="200" fill="url(#grid)"/>
+  
+  <!-- 蛇身体 -->
+  <g filter="url(#glow)">
+    <!-- 蛇头 -->
+    <circle cx="180" cy="100" r="12" fill="url(#snakeGrad)"/>
+    <circle cx="176" cy="96" r="2" fill="#fff"/>
+    <circle cx="184" cy="96" r="2" fill="#fff"/>
+    
+    <!-- 蛇身 -->
+    <circle cx="160" cy="100" r="10" fill="#22c55e"/>
+    <circle cx="140" cy="100" r="10" fill="#16a34a"/>
+    <circle cx="120" cy="100" r="10" fill="#22c55e"/>
+    <circle cx="100" cy="100" r="10" fill="#16a34a"/>
+    <circle cx="80" cy="100" r="10" fill="#22c55e"/>
+  </g>
+  
+  <!-- 食物 -->
+  <circle cx="220" cy="80" r="8" fill="#ef4444" filter="url(#glow)"/>
+  <circle cx="220" cy="80" r="4" fill="#dc2626"/>
+  
+  <!-- 装饰性食物 -->
+  <circle cx="60" cy="60" r="6" fill="#f97316" opacity="0.7"/>
+  <circle cx="240" cy="140" r="6" fill="#eab308" opacity="0.7"/>
+  
+  <!-- 标题文字 -->
+  <text x="150" y="40" text-anchor="middle" fill="#22c55e" font-size="24" font-weight="bold" font-family="Arial">SNAKE</text>
+  <text x="150" y="170" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="Arial">经典贪吃蛇游戏</text>
+</svg> 

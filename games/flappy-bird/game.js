@@ -31,8 +31,8 @@ class FlappyBirdGame {
         this.distance = 0;
         
         // 游戏物理参数 - 适配更大的画布
-        this.gravity = 0.5;
-        this.jumpForce = -10;
+        this.gravity = 0.35;
+        this.jumpForce = -9;
         this.gameSpeed = 3;
         
         // 小鸟属性 - 适配更大的画布
